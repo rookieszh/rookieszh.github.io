@@ -75,7 +75,7 @@
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: 
+        search: true
     }
 </script>
 
@@ -109,6 +109,13 @@
         <p class="header-subtitle">Less Interests, More Interest.</p>
         
 
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
         
 
 
@@ -294,8 +301,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><p>fdasfdsa<br>fadsfsd</p>
-
+              Welcome to Hexo! This is your very first post.
+          
       
     </div>
     
@@ -304,6 +311,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2020/03/24/my-first-blog/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
