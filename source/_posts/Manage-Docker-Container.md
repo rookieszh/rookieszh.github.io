@@ -80,6 +80,7 @@ docker update --memory 20m $(docker ps -ql)
 ```
 #### 内存限制参数的特定行为
 > 这里的特定参数行为，主要是指我们前面使用的 --memory 和未介绍过的 --memory-swap 这两个参数。
+
 1. --memory 用于限制内存使用量，而 --memory-swap 则表示内存和 Swap 的总和。
 --memory-swap 始终应该大于等于 --memory （毕竟 Swap 最小也只能是 0 ）。
 2. 如果只指定了 --memory 则最终 --memory-swap 将会设置为 --memory 的两倍。也就是说，在只传递 --memory 的情况下，容器只能使用与 --memory 相同大小的 Swap。

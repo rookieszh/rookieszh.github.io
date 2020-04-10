@@ -11,9 +11,11 @@ This special colunm is to share the idea "Less Interests, More Interest".
 本专栏用于收集整理博主日常的脑洞、或者复刻的那些有意思的玩意。同时极其欢迎邮件联系我进行脑洞分享与技术探讨~
 
 #### MIKUTAP 
-> A web music game : To Compose your single song 😝 | [Click Here](https://www.rookie-home.com/mikutap/)
+> A web music game : To compose your single song 😝 | [Click Here](https://www.rookie-home.com/mikutap/)
 > For PC Browser : Click your mouse and hit the keyboard.
 > For Mobile Browser : Just dance your finger !
+
+![](mikutap.gif)
 
 + 2020.03.08 网页部署
 
@@ -22,6 +24,7 @@ This special colunm is to share the idea "Less Interests, More Interest".
 #### COVID-19 WorldWide Total Case Dynamic Display 
 > 以 per day 为时间轴，动态展示新冠病毒 COVID-19 各国确诊病例的变化趋势 | [Click Here](https://www.rookie-home.com/covid/)
 
+![](covid.gif)
 + 2020.03.15 网页部署
 + 2020.03.16 实现国家名中文
 + 2020.03.20 编写自动化 python 脚本进行数据的每日爬取更新
@@ -39,6 +42,8 @@ This special colunm is to share the idea "Less Interests, More Interest".
 
 #### Face Mask Detection
 > 利用百度开源的模型进行人脸佩戴口罩与否的检测 | 想要源码请 Email 联系我
+
+![](facemaskdetection.jpeg)
 
 <br><br>
 

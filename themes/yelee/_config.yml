@@ -11,8 +11,8 @@ menu:
   所有文章: /archives/
   #随笔: /tags/随笔
   文章分类: /tags/
-  有趣的搬运: /miniapp/
-  AboutMe: /about/
+  More Interest: /miniapp/
+  #AboutMe: /about/
 
 # Link to your avatar | 填写头像地址
 avatar: /img/avatar.png
@@ -32,7 +32,7 @@ favicon: /img/avatar.png
 root_url:
 
 # Year of Site Creation | 网站成立年份
-since: 2017
+since: 2019
 
 # Social info. Bar | 社交信息展示
 ## Keep "mailto:" in Email | 设置 Email 时保留 "mailto:"
@@ -232,7 +232,9 @@ tab_title_change:
 ## https://github.com/PaicHyperionDev/hexo-generator-search
 search:
   on: true
-  onload: false
+  onload: true
+  path: search.xml
+  field: all
   ## true: get search.xml file when the page has loaded
   ## false: get the file when search box gets focus
 
