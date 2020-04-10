@@ -1,14 +1,19 @@
 ---
-title: Code Refactoring Note I
-date: 2020-03-27 17:51:06
-tags:
+title: What is Code Refactoring and How To Refactor
+date: 2020-03-01 17:51:06
+categories:
     - Programming
-    - Refactoring
-description: "本节笔记介绍了 what is code refactoring，并以if-else的例子来说明如何实际运用 code refactoring。"
+tags:
+    - Refactor Code
+description: "【代码重构系列笔记——1】介绍了什么是重构，为何要重构，并以实际的例子来说明如何进行代码重构。"
+fancybox: true  # 图片浏览器
+toc: true       # 文章目录
+original: true  # 文末版权信息 
+comments: true  # 文末评论
+share: true     # 分享
 ---
 
 ## 什么是重构
-
 ### 误区与定义
 误区：把任何形式的代码清理当做重构。
 定义：对软件内部结构的一种调整，目的是在不改变软件可观察行为的前提下，提高其可理解性，降低修改成本。
@@ -24,20 +29,19 @@ description: "本节笔记介绍了 what is code refactoring，并以if-else的�
 内部质量
 * 代码质量(不可见)
 
-### 为何需要重构
-
-#### 技术债务
+## 为何需要重构
+### 技术债务
 > 开发团队在设计或架构选型时从短期效应的角度选择了一个易于实现的方案，但从长远来看，这种方案会带来消极的影响，亦即开发团队所欠的债务。 ——Ward Cunningham
 
-#### 破窗效应
+### 破窗效应
 
-#### 重构的收益
+### 重构的收益
 重构改进软件的设计——保持架构活力
 重构使软件更容易理解——易理解>易维护>高效率
 重构帮助找到BUG——结构清晰更容易发现问题
 重构提高编程速度——更快迭代
 
-#### 重构的挑战
+### 重构的挑战
 1. 工期延误：Baby step、长期收益
 2. 破坏功能：单元测试很重要、使用Eclipse的自动化重构工具
 3. 性能下降
@@ -51,11 +55,11 @@ description: "本节笔记介绍了 what is code refactoring，并以if-else的�
 2. 不同状态处理：所有分支都是正常流程
 
 ### 接口分层
-> 把接口分为外部和内部接口，所有空值判断放在外部接口完成；而内部接口传入的变量由外部接口保证不为空，从而减少空值判断。
+把接口分为外部和内部接口，所有空值判断放在外部接口完成；而内部接口传入的变量由外部接口保证不为空，从而减少空值判断。
 
 ### 利用多态
-> 利用多态，把业务判断消除，各子类分别关注自己的实现，并实现子类的创建方法，避免用户了解过多的类。
-> 但使用多态对原来代码修改过大，最好在设计之初就使用多态方式。
+利用多态，把业务判断消除，各子类分别关注自己的实现，并实现子类的创建方法，避免用户了解过多的类。
+但使用多态对原来代码修改过大，最好在设计之初就使用多态方式。
 ```java
 // 重构前
 private static final int TYPE_LINK = 0;
@@ -144,7 +148,7 @@ private void shareImpl (ShareItem item, ShareListener listener) {
 ```
 
 ### Map分支
-> 把分支状态信息预先缓存在Map里，直接get获取具体值，消除分支。
+把分支状态信息预先缓存在Map里，直接get获取具体值，消除分支。
 ```java
 private Map<Integer, Class<? extends ShareItem>> map = new HashMap<>();
 
@@ -186,8 +190,8 @@ double disablityAmount(){
 ```
 
 ### 提前return
-> 改为平行关系，而非包含关系
-> 尽可能地维持正常流程代码在最外层
+改为平行关系，而非包含关系
+尽可能地维持正常流程代码在最外层
 ```java
 // 重构前
 double getPayAmount(){
@@ -218,7 +222,7 @@ double getPayAmount(){
     return normalPayAmount();
 }
 ```
-> 将条件反转使异常情况先退出，让正常流程维持在主干流程。
+将条件反转使异常情况先退出，让正常流程维持在主干流程。
 ```java
 // 重构前
 public double getAdjustedCapital(){

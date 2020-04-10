@@ -1,12 +1,18 @@
 ---
 title: Docker Introduction
-date: 2020-04-09 02:36:55
+date: 2019-08-10 20:00:00
+categories:
+    - Basic Component
 tags:
     - Docker
-    - Server
-    - Basic Components
-description: "这篇笔记介绍了入门 Docker 的知识与安装"
+description: "【Docker 系列学习笔记——Docker入门】1.什么是docker，docker的原理，docker的用途。2.如何安装docker"
+fancybox: true  # 图片浏览器
+toc: true       # 文章目录
+original: true  # 文末版权信息 
+comments: true  # 文末评论
+share: true     # 分享
 ---
+
 
 > [Docker文档](https://docs.docker.com/) | [DockerHub](https://hub.docker.com/)
 

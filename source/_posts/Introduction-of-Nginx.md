@@ -1,17 +1,21 @@
 ---
-title: Nginx Note I
-date: 2020-03-27 08:14:46
+title: Introduction of Nginx
+date: 2019-10-03 20:00:00
+categories:
+    - Basic Component
 tags:
     - Nginx
-    - Server
-    - Basic Components
-description: "本节笔记介绍了WEB服务器，简述了Nginx原理与两种nginx安装方法。"
+description: "【Nginx 系列学习笔记——1】1.比较了另一款重量级web服务器apache。2.介绍了Nginx的原理。3.如何安装Nginx"
+fancybox: true  # 图片浏览器
+toc: true       # 文章目录
+original: true  # 文末版权信息 
+comments: true  # 文末评论
+share: true     # 分享
 ---
 
-
-## Web 服务器
 > Nginx: Engine X
-> Nginx 与 Apache一样，是一种WEB服务器。是基于REST架构风格，以统一资源描述符(Uniform Resources Identifier)URI或者统一资源定位符(Uniform Resources Locator)URL作为沟通依据，通过HTTP协议提供各种网络服务。
+## Web 服务器
+Nginx 与 Apache一样，是一种WEB服务器。是基于REST架构风格，以统一资源描述符(Uniform Resources Identifier)URI或者统一资源定位符(Uniform Resources Locator)URL作为沟通依据，通过HTTP协议提供各种网络服务。
 
 不同于重量级且不支持高并发的Apache，Nginx具有如下特点：
 1. 轻量级

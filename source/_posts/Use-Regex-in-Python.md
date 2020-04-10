@@ -1,10 +1,17 @@
 ---
 title: Use Regex in Python
-date: 2020-04-09 02:33:30
+date: 2020-02-09 13:33:30
+categories:
+    - Programming
 tags:
     - Regex
     - Python
-description: "How to use regex in python?"
+description: "【正则表达式系列——在Python中使用正则表达式】 1.原始字符串的概念。2.常用函数的介绍与实战使用。3.常量模块。4.异常"
+fancybox: true  # 图片浏览器
+toc: true       # 文章目录
+original: true  # 文末版权信息 
+comments: true  # 文末评论
+share: true     # 分享
 ---
 
 ## 原始字符串
@@ -149,4 +156,25 @@ for addr in obj.findall(email):
     ['shengyuan', 'octagon-advisors.com']
     ['g0700508', 'nus.edu.sg']
     ['barack.obama', 'whitehouse.gov']
+```
+## 常量模块
+```python
+# 常量可叠加使用，因为常量值都是2的幂次方值，所以是可以叠加使用的，叠加时请使用 | 符号
+# 使用举例
+re.findall(pattern, string, re.模块)
+
+# re.IGNORECASE / re.I : 忽略大小写
+# re.ASCII / re.A : 只匹配 ASCII 码，让 \w,\W,\b,\B,\d,\D,\s和\S 只匹配ASCII， 不匹配 Unicode 等其他码
+# re.DOTALL / re.S : 让 . 能匹配所有，包括换行符\n。默认模式下 . 是不能匹配行符\n的
+# re.MULTILINE / re.M : 多行模式，当某字符串中有换行符\n，默认模式下是不支持换行符特性的，比如：行开头 和 行结尾，而多行模式下是支持匹配行开头的。
+# re.VERBOSE / re.X : 详细模式，可以在正则表达式中加注解！
+# re.UNICODE / re.U : 与 ASCII 模式类似，匹配unicode编码支持的字符，但是 Python 3 默认字符串已经是Unicode，所以有点冗余。
+# re.DEBUG : 显示编译时的debug信息
+
+```
+## 异常
+```python
+# re模块还包含了一个正则表达式的编译错误
+# 当我们给出的正则表达式是一个无效的表达式（就是表达式本身有问题）时，就会raise一个异常
+
 ```

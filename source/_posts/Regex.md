@@ -1,10 +1,18 @@
 ---
 title: Regex
-date: 2020-04-09 02:30:45
+date: 2020-01-13 02:30:45
+categories:
+    - Programming
 tags:
     - Regex
-description: "Regex Introduction. 介绍了匹配规则与字符。下一章将介绍python中如何使用regex"
+description: "【正则表达式系列——regex】 1.meta character。2.字符集。3.零宽度断言。4.标志、模式修正符。5.贪婪匹配与惰性匹配。"
+fancybox: true  # 图片浏览器
+toc: true       # 文章目录
+original: true  # 文末版权信息 
+comments: true  # 文末评论
+share: true     # 分享
 ---
+
 
 > Regular expression (regex/regexp)
 > 正则表达式是一种从左到右匹配主体字符串的模式
