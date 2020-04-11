@@ -40,6 +40,15 @@ This special colunm is to share the idea "Less Interests, More Interest".
 
 <br><br>
 
+#### PianoOnline
+> 在线弹钢琴！提供了一些曲谱和自动演奏！ | [Click Here](http://www.rookie-home.com:5000)
+
+![](piano.gif)
+
++ 2020.04.11 网页部署
+
+<br><br>
+
 #### Face Mask Detection
 > 利用百度开源的模型进行人脸佩戴口罩与否的检测 | 想要源码请 Email 联系我
 
