@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Rookie" />
+
+
+
+<meta name="description" content="Distributed System 分布式系统中数据、事务、指令、操作的同步一致性至关重要。本文介绍了2PC与3PC的概念与原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2PC And 3PC">
+<meta property="og:url" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/index.html">
+<meta property="og:site_name" content="Here | Rookie">
+<meta property="og:description" content="Distributed System 分布式系统中数据、事务、指令、操作的同步一致性至关重要。本文介绍了2PC与3PC的概念与原理">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_1.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_2.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_3.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_4.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_5.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_6.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_7.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_8.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_9.png">
+<meta property="article:published_time" content="2019-11-03T08:40:28.000Z">
+<meta property="article:modified_time" content="2020-04-12T10:50:15.561Z">
+<meta property="article:author" content="Rookie">
+<meta property="article:tag" content="2PC">
+<meta property="article:tag" content="3PC">
+<meta property="article:tag" content="transaction">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/2PC%E4%B8%8E3PC_1.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Here | Rookie" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>2PC And 3PC | Here | Rookie</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Rookie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Less Interests, More Interest.</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="true" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">文章分类</a></li>
+                        
+                            <li><a href="/miniapp/">More Interest</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/rookieszh/" target="_blank" rel="noopener" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MessageQueue/" rel="tag">MessageQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multimodal/" rel="tag">Multimodal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI/" rel="tag">OSI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Refactor-Code/" rel="tag">Refactor Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Rookie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Rookie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Less Interests, More Interest.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">文章分类</a></li>
+                
+                    <li><a href="/miniapp/">More Interest</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/rookieszh/" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-2PC-And-3PC" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/11/03/2PC-And-3PC/" class="article-date">
+      <time datetime="2019-11-03T08:40:28.000Z" itemprop="datePublished">2019-11-03</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      2PC And 3PC
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Internet/">Internet</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/2PC/" rel="tag">2PC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3PC/" rel="tag">3PC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="2PC——二阶段提交"><a href="#2PC——二阶段提交" class="headerlink" title="2PC——二阶段提交"></a>2PC——二阶段提交</h2><blockquote>
+<p>分布式数据要尽可能保证一致性，2PC即二阶段提交就是保证数据一致性的一种手段。</p>
+</blockquote>
+<p>在分布式系统中，每个节点虽然可以知晓自己的操作时成功或者失败，却无法知道其他节点的操作的成功或失败。<br>当一个事务跨越多个节点时，为了保持事务的ACID特性，需要引入一个作为协调者的组件来统一掌控所有参与者的操作结果并最终指示这些节点是否要把操作结果进行真正的提交。<br>因此，二阶段提交的算法思路可以概括为：参与者将操作成败通知协调者，再由协调者根据所有参与者的反馈情报决定各参与者是否要提交操作还是中止操作。</p>
+<p>所谓的两个阶段是指：第一阶段：准备阶段和第二阶段：提交阶段</p>
+<h3 id="准备阶段"><a href="#准备阶段" class="headerlink" title="准备阶段"></a>准备阶段</h3><p>事务协调者给每个参与者发送Prepare消息，每个参与者要么直接返回失败，要么在本地执行事务，但不提交。<br>可以进一步将准备阶段分为以下三个步骤：</p>
+<ul>
+<li>1）协调者节点向所有参与者节点询问是否可以执行提交操作，并开始等待各参与者节点的响应。</li>
+<li>2）参与者节点执行询问发起为止的所有事务操作，并将Undo信息和Redo信息写入日志。</li>
+<li>3）各参与者节点响应协调者节点发起的询问。如果参与者节点的事务操作实际执行成功，则它返回一个”同意”消息；如果参与者节点的事务操作实际执行失败，则它返回一个”中止”消息。</li>
+</ul>
+<p><img src="2PC%E4%B8%8E3PC_1.png" alt=""></p>
+<h3 id="提交阶段"><a href="#提交阶段" class="headerlink" title="提交阶段"></a>提交阶段</h3><p>如果协调者收到了参与者的失败消息或者超时，直接给每个参与者发送回滚消息；否则，发送提交消息；参与者根据协调者的指令执行提交或者回滚操作。<br>接下来分两种情况分别讨论提交阶段的过程。</p>
+<ul>
+<li>1）当协调者节点从所有参与者节点获得的相应消息都为”同意”时:</li>
+</ul>
+<p><img src="2PC%E4%B8%8E3PC_2.png" alt=""></p>
+<ol>
+<li>协调者节点向所有参与者节点发出”正式提交”的请求。</li>
+<li>参与者节点正式完成操作，并释放在整个事务期间内占用的资源。</li>
+<li>参与者节点向协调者节点发送”完成”消息</li>
+<li>协调者节点受到所有参与者节点反馈的”完成”消息后，完成事务。</li>
+</ol>
+<ul>
+<li>2）如果任一参与者节点在第一阶段返回的响应消息为”中止”，或者 协调者节点在第一阶段的询问超时之前无法获取所有参与者节点的响应消息时：</li>
+</ul>
+<p><img src="2PC%E4%B8%8E3PC_3.png" alt=""></p>
+<ol>
+<li>协调者节点向所有参与者节点发出”回滚操作”的请求。</li>
+<li>参与者节点利用之前写入的Undo信息执行回滚，并释放在整个事务期间内占用的资源。</li>
+<li>参与者节点向协调者节点发送”回滚完成”消息。</li>
+<li>协调者节点受到所有参与者节点反馈的”回滚完成”消息后，取消事务。</li>
+</ol>
+<h3 id="2PC-的缺点"><a href="#2PC-的缺点" class="headerlink" title="2PC 的缺点"></a>2PC 的缺点</h3><ol>
+<li>同步阻塞问题。执行过程中，所有参与节点都是事务阻塞型的。当参与者占有公共资源时，其他第三方节点访问公共资源不得不处于阻塞状态。（当参与者收到组织者的消息之后，需要登录游戏，在游戏中等待组织者的再次邀请，这个过程比较浪费时间。）</li>
+<li>单点故障。由于协调者的重要性，一旦协调者发生故障。参与者会一直阻塞下去。尤其在第二阶段，协调者发生故障，那么所有的参与者还都处于锁定事务资源的状态中，而无法继续完成事务操作。（如果是协调者挂掉，可以重新选举一个协调者，但是无法解决因为协调者宕机导致的参与者处于阻塞状态的问题）</li>
+<li>数据不一致。在二阶段提交的阶段二中，当协调者向参与者发送commit请求之后，发生了局部网络异常或者在发送commit请求过程中协调者发生了故障，这回导致只有一部分参与者接受到了commit请求。而在这部分参与者接到commit请求之后就会执行commit操作。但是其他部分未接到commit请求的机器则无法执行事务提交。于是整个分布式系统便出现了数据部一致性的现象。</li>
+<li>二阶段无法解决的问题：协调者再发出commit消息之后宕机，而唯一接收到这条消息的参与者同时也宕机了。那么即使协调者通过选举协议产生了新的协调者，这条事务的状态也是不确定的，没人知道事务是否被已经提交。</li>
+</ol>
+<p>为了解决以上缺点就有了3PC</p>
+<h2 id="3PC——三阶段提交"><a href="#3PC——三阶段提交" class="headerlink" title="3PC——三阶段提交"></a>3PC——三阶段提交</h2><blockquote>
+<p>所谓3PC，就是把2PC的准备阶段再次一分为二，组成了三阶段。<br>3PC并没彻底解决2PC存在的所有问题</p>
+</blockquote>
+<details>
+<summary> 2PC举例 </summary>
+组织者：小A，我们准备玩王者荣耀，你要是可以来参加的话，现在你就登录游戏，然后在游戏好友上给我回复个消息。
+
+<p>小A登录自己的游戏账号，然后告诉组织者：小A已就位。</p>
+<p>组织者：小B、小C、小D，我们准备玩王者荣耀，你要是可以来参加的话，现在你就登录游戏，然后在游戏好友上给我回复个消息。</p>
+<p>小B、小C、小D分别登录自己的游戏账号，然后告诉组织者：小B、小C、小D已就位。</p>
+<p>组织者发现所有人都就位了，于是在游戏上逐一通知大家，</p>
+<p>组织者：小A，我邀请你了，你进来吧。</p>
+<p>小A接受邀请</p>
+<p>组织者：小B、小C、小D，我邀请你了，你进来吧。</p>
+<p>小小B、小C、小D接收邀请</p>
+</details>
+
+<details>
+<summary> 3PC举例 </summary>
+组织者：小A，我们想定在晚上8点，你有时间嘛？有时间你就说YES，没有你就说NO，然后我还会再去问其他人，这段时间你可先去干你自己的事儿，不用一直等着我。
+
+<p>小A：好的，我有时间。</p>
+<p>组织者：小B、小C、小D，我们想定在晚上8点王者荣耀五黑……不用一直等我。</p>
+<p>组织者收集完大家的时间情况了，一看大家都有时间，那么就再次通知大家。（协调者接收到所有YES指令）</p>
+<p>组织者：小A，我们确定了晚上8点王者荣耀五黑，你要把段时间空出来，你不能再安排其他的事儿了。然后我会逐个通知其他朋友，通知完之后我会再来和你确认一下，还有啊，如果我没有特意给你打电话，你就8点上号就行了。对了，你确定能来是吧？</p>
+<p>小A顺手设置了晚上8点闹钟，然后跟组织者说，我可以去。</p>
+<p>组织者：小B，我们决定了晚上8点王者荣耀五黑……你就8点上号就行了。</p>
+<p>组织者通知完一圈之后。所有朋友都跟他说：”我已经把8点这个时间段空出来了”。于是，他在8点的时候这一天又挨个打了一遍电话告诉他们：嘿，现在你们可以上号啦。。。。</p>
+<p>小A、小B、小C、小D：我已经登录了，你拉我吧。</p>
+<p>组织者邀请A、B、C等加入游戏。</p>
+</details>
+
+<p>和2PC相比，3PC多了一个步骤，就是提前询问所以参与者是否都能参与，并且所有人都同意后再次通知大家登录游戏。</p>
+<p>在第一阶段，只是询问所有参与者是否可以执行事务操作，并不在本阶段执行事务操作。当协调者收到所有的参与者都返回YES时，在第二阶段才执行事务操作，然后在第三阶段在执行commit或者rollback。</p>
+<p>这样三阶段提交就有CanCommit（事务询问）、PreCommit（事务执行）、DoCommit（事务提交）三个阶段。</p>
+<h3 id="CanCommit阶段"><a href="#CanCommit阶段" class="headerlink" title="CanCommit阶段"></a>CanCommit阶段</h3><p>3PC的CanCommit阶段其实和2PC的准备阶段很像。协调者向参与者发送commit请求，参与者如果可以提交就返回Yes响应，否则返回No响应。</p>
+<p><img src="2PC%E4%B8%8E3PC_4.png" alt=""><br>1、事务询问：协调者向参与者发送CanCommit请求。询问是否可以执行事务提交操作。然后开始等待参与者的响应。</p>
+<p>2、响应反馈：参与者接到CanCommit请求之后，正常情况下，如果其自身认为可以顺利执行事务，则返回YES响应，并进入预备状态。否则反馈NO</p>
+<h3 id="PreCommit阶段"><a href="#PreCommit阶段" class="headerlink" title="PreCommit阶段"></a>PreCommit阶段</h3><p>协调者根据CanCommit阶段参与者的反应情况来决定是否可以进行事务的PreCommit操作。<br>假如协调者从所有的参与者获得的反馈都是YES响应，那么就会执行事务的预执行：</p>
+<p><img src="2PC%E4%B8%8E3PC_5.png" alt=""><br>1、发送预提交请求：协调者向参与者发送PreCommit请求，并进入Prepared阶段。</p>
+<p>2、事务预提交：参与者接收到PreCommit请求后，会执行事务操作，并将undo和redo信息记录到事务日志中。</p>
+<p>3、响应反馈：如果参与者成功的执行了事务操作，则返回ACK响应，同时开始等待最终指令。</p>
+<p>假如有任何一个参与者向协调者发送了NO响应，或者等待超时之后，协调者都没有接到参与者的响应，那么就执行事务的中断。</p>
+<p><img src="2PC%E4%B8%8E3PC_6.png" alt=""><br>1、发送中断请求：协调者向所有参与者发送abort请求。</p>
+<p>2、中断事务：参与者收到来自协调者的abort请求之后（或超时之后，仍未收到协调者的请求），执行事务的中断。</p>
+<h3 id="doCommit阶段"><a href="#doCommit阶段" class="headerlink" title="doCommit阶段"></a>doCommit阶段</h3><p>该阶段进行真正的事务提交，也可以分为以下两种情况。<br>如果协调证收到所有参与者的事务执行后的ACK响应，则发生如下事情：</p>
+<p><img src="2PC%E4%B8%8E3PC_7.png" alt=""><br>1、发送提交请求：协调接收到参与者发送的ACK响应，那么他将从预提交状态进入到提交状态。并向所有参与者发送doCommit请求。</p>
+<p>2、事务提交：参与者接收到doCommit请求之后，执行正式的事务提交。并在完成事务提交之后释放所有事务资源。</p>
+<p>3、响应反馈：事务提交完之后，向协调者发送Ack响应。</p>
+<p>4、完成事务：协调者接收到所有参与者的ack响应之后，完成事务。</p>
+<p>如果协调者没有接收到参与者发送的ACK响应（可能是接受者发送的不是ACK响应，也可能响应超时），那么就会执行中断事务。</p>
+<p><img src="2PC%E4%B8%8E3PC_8.png" alt=""><br>1、发送中断请求：协调者向所有参与者发送abort请求</p>
+<p>2、事务回滚：参与者接收到abort请求之后，利用其在阶段二记录的undo信息来执行事务的回滚操作，并在完成回滚之后释放所有的事务资源。</p>
+<p>3、反馈结果：参与者完成事务回滚之后，向协调者发送ACK消息</p>
+<p>4、中断事务：协调者接收到参与者反馈的ACK消息之后，执行事务的中断。</p>
+<p>还有一种情况，如果参与者无法及时接收到来自协调者的doCommit或者abort请求时，会在等待超时之后，会继续进行事务的提交。</p>
+<p><img src="2PC%E4%B8%8E3PC_9.png" alt=""></p>
+<h2 id="3PC比2PC好在哪？"><a href="#3PC比2PC好在哪？" class="headerlink" title="3PC比2PC好在哪？"></a>3PC比2PC好在哪？</h2><h3 id="降低同步阻塞"><a href="#降低同步阻塞" class="headerlink" title="降低同步阻塞"></a>降低同步阻塞</h3><p>在3PC中，第一阶段并没有让参与者直接执行事务，而是在第二阶段才会让参与者进行事务的执行。大大降低了阻塞的概率和时长。并且，在3PC中，如果参与者未收到协调者的消息，那么他会在等待一段时间后自动执行事务的commit，而不是一直阻塞。</p>
+<h3 id="提升了数据一致性"><a href="#提升了数据一致性" class="headerlink" title="提升了数据一致性"></a>提升了数据一致性</h3><p>2PC中有一种情况会导致数据不一致，如在2PC的阶段二中，当协调者向参与者发送commit请求之后，发生了网络异常，只有一部分参与者接受到了commit请求。而在这部分参与者接到commit请求之后就会执行commit操作。但是其他部分未接到commit请求的机器则无法执行事务提交。于是整个分布式系统便出现了数据不一致性的现象。</p>
+<p>这种情况在3PC的场景中得到了很好的解决，因为在3PC中，如果参与者没有收到协调者的消息时，他不会一直阻塞，过一段时间之后，他会自动执行事务。这就解决了那种协调者发出commit之后。</p>
+<p>另外，2PC还有个问题无法解决。那就是协调者再发出commit消息之后宕机，而唯一接收到这条消息的参与者同时也宕机了。那么即使协调者通过选举协议产生了新的协调者，这条事务的状态也是不确定的，没人知道事务是否被已经提交。</p>
+<p>这种情况在3PC中是有办法解决的，因为在3PC中，选出新的协调者之后，他可以咨询所有参与者的状态，如果有某一个处于commit状态或者prepare-commit状态，那么他就可以通知所有参与者执行commit，否则就通知大家rollback。因为3PC的第三阶段一旦有机器执行了commit，那必然第一阶段大家都是同意commit的，所以可以放心执行commit。</p>
+<h2 id="3PC无法解决的问题"><a href="#3PC无法解决的问题" class="headerlink" title="3PC无法解决的问题"></a>3PC无法解决的问题</h2><p>在doCommit阶段，如果参与者无法及时接收到来自协调者的doCommit或者abort请求时，会在等待超时之后，会继续进行事务的提交。</p>
+<p>所以，由于网络原因，协调者发送的abort响应没有及时被参与者接收到，那么参与者在等待超时之后执行了commit操作。这样就和其他接到abort命令并执行回滚的参与者之间存在数据不一致的情况。</p>
+<p>所以，我们可以认为，无论是二阶段提交还是三阶段提交都无法彻底解决分布式的一致性问题。</p>
+<p>Google Chubby的作者Mike Burrows说过：</p>
+<p>there is only one consensus protocol, and that’s Paxos” – all other approaches are just broken versions of Paxos。</p>
+<p>意即世上只有一种一致性算法，那就是Paxos，所有其他一致性算法都是Paxos算法的不完整版。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/11/03/2PC-And-3PC/">2PC And 3PC</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Rookie</a></p>
+        <p><span>发布时间:</span>2019-11-03, 16:40:28</p>
+        <p><span>最后更新:</span>2020-04-12, 18:50:15</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/11/03/2PC-And-3PC/" title="2PC And 3PC">https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/11/11/Message-Queue-%E2%80%94%E2%80%94RabbitMQ/">
+                    Message Queue ——RabbitMQ
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/10/29/Nginx-Error/">
+                    Nginx Error
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2PC——二阶段提交"><span class="toc-number">1.</span> <span class="toc-text">2PC——二阶段提交</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备阶段"><span class="toc-number">1.1.</span> <span class="toc-text">准备阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交阶段"><span class="toc-number">1.2.</span> <span class="toc-text">提交阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2PC-的缺点"><span class="toc-number">1.3.</span> <span class="toc-text">2PC 的缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3PC——三阶段提交"><span class="toc-number">2.</span> <span class="toc-text">3PC——三阶段提交</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CanCommit阶段"><span class="toc-number">2.1.</span> <span class="toc-text">CanCommit阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PreCommit阶段"><span class="toc-number">2.2.</span> <span class="toc-text">PreCommit阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#doCommit阶段"><span class="toc-number">2.3.</span> <span class="toc-text">doCommit阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3PC比2PC好在哪？"><span class="toc-number">3.</span> <span class="toc-text">3PC比2PC好在哪？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#降低同步阻塞"><span class="toc-number">3.1.</span> <span class="toc-text">降低同步阻塞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提升了数据一致性"><span class="toc-number">3.2.</span> <span class="toc-text">提升了数据一致性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3PC无法解决的问题"><span class="toc-number">4.</span> <span class="toc-text">3PC无法解决的问题</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"2PC And 3PC　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://www.rookie-home.xyz/2019/11/03/2PC-And-3PC/';
+            this.page.identifier = '2019/11/03/2PC-And-3PC/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//www-rookie-home-xyz.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/11/11/Message-Queue-%E2%80%94%E2%80%94RabbitMQ/" title="上一篇: Message Queue ——RabbitMQ">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/10/29/Nginx-Error/" title="下一篇: Nginx Error">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/03/01/What-is-Code-Refactoring-and-How-To-Refactor/">What is Code Refactoring and How To Refactor</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/09/Use-Regex-in-Python/">Use Regex in Python</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/13/Regex/">Regex</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/03/Docker-Tools/">Docker Tools</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/11/Message-Queue-%E2%80%94%E2%80%94RabbitMQ/">Message Queue ——RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/03/2PC-And-3PC/">2PC And 3PC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/29/Nginx-Error/">Nginx Error</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/20/Nginx-Optimization/">Nginx Optimization</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/09/Nginx-Syntax/">Nginx Syntax</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/">What Can Nginx Do and How to Use Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/03/Introduction-of-Nginx/">Introduction of Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/16/DockerCompose-yml/">DockerCompose.yml</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/How-To-Use-Docker-Compose/">How To Use Docker Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/Docker-Compose-Introduction/">Docker Compose Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/12/Manage-Docker-Container/">Manage Docker Container</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/12/DockerFile/">DockerFile</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/How-To-Use-Docker/">How To Use Docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/10/Docker-Introduction/">Docker Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/19/Open-System-Interconnection-Introduction/">Open System Interconnection Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/05/ReadingNote%E2%80%94%E2%80%94MMML/">ReadingNote——MMML</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019-2020 Rookie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

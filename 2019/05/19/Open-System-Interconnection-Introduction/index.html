@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Rookie" />
+
+
+
+<meta name="description" content="开放式系统互联模型，即我们常说的网络通信7层协议。本文介绍了七层模型的内容与概念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Open System Interconnection Introduction">
+<meta property="og:url" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/index.html">
+<meta property="og:site_name" content="Here | Rookie">
+<meta property="og:description" content="开放式系统互联模型，即我们常说的网络通信7层协议。本文介绍了七层模型的内容与概念。">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_1.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%988.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%989.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_2.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%9810.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_3.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_4.png">
+<meta property="article:published_time" content="2019-05-19T10:32:22.000Z">
+<meta property="article:modified_time" content="2020-04-12T10:38:31.449Z">
+<meta property="article:author" content="Rookie">
+<meta property="article:tag" content="OSI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_1.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Here | Rookie" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Open System Interconnection Introduction | Here | Rookie</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Rookie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Less Interests, More Interest.</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="true" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">文章分类</a></li>
+                        
+                            <li><a href="/miniapp/">More Interest</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/rookieszh/" target="_blank" rel="noopener" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MessageQueue/" rel="tag">MessageQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multimodal/" rel="tag">Multimodal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI/" rel="tag">OSI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Refactor-Code/" rel="tag">Refactor Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Rookie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Rookie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Less Interests, More Interest.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">文章分类</a></li>
+                
+                    <li><a href="/miniapp/">More Interest</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/rookieszh/" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Open-System-Interconnection-Introduction" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/05/19/Open-System-Interconnection-Introduction/" class="article-date">
+      <time datetime="2019-05-19T10:32:22.000Z" itemprop="datePublished">2019-05-19</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Open System Interconnection Introduction
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Internet/">Internet</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OSI/" rel="tag">OSI</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="OSI-网络体系结构与-TCP-IP-协议模型"><a href="#OSI-网络体系结构与-TCP-IP-协议模型" class="headerlink" title="OSI 网络体系结构与 TCP/IP 协议模型"></a>OSI 网络体系结构与 TCP/IP 协议模型</h2><blockquote>
+<p>OSI 是一个理论上的网络通信模型，而 TCP/IP 则是实际上的网络通信标准。但是，它们的初衷是一样的，都是为了使得两台计算机能够像两个知心朋友那样能够互相准确理解对方的意思并做出优雅的回应。<br>分层划分的结构，既能规定不同层完成的功能，又能实现层与层之间的改动而不相互影响。<br>起初网络分层是标准的七层，也就是 OSI 七层模型。之后又诞生了 TCP/IP 五层模型。</p>
+</blockquote>
+<p><img src="%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_1.png" alt=""><br><img src="%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%988.png" alt=""></p>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><p>参考模型的最低层，也是OSI模型的第一层，实现了相邻计算机节点之间比特流的透明传送，并尽可能地屏蔽掉具体传输介质和物理设备的差异，使其上层(数据链路层)不必关心网络的具体传输介质。</p>
+<h3 id="数据链路层-data-link-layer"><a href="#数据链路层-data-link-layer" class="headerlink" title="数据链路层 data link layer"></a>数据链路层 data link layer</h3><p>接收来自物理层的位流形式的数据，并封装成帧，传送到上一层；同样，也将来自上层的数据帧，拆装为位流形式的数据转发到物理层。这一层在物理层提供的比特流的基础上，通过差错控制、流量控制方法，使有差错的物理线路变为无差错的数据链路，即提供可靠的通过物理介质传输数据的方法。</p>
+<h4 id="以太网协议"><a href="#以太网协议" class="headerlink" title="以太网协议"></a>以太网协议</h4><blockquote>
+<p>以太网规定，每组的电信号就是一个数据包，每个数据包我们可以称为“帧”。每帧的组成是由标头(Head)和数据(Data)组成。</p>
+</blockquote>
+<h5 id="标头"><a href="#标头" class="headerlink" title="标头"></a>标头</h5><p>用于供接收端判断该帧是否是发送给自己的。<br>数据包的标头中通常会存放一些有关数据包的说明、发送者是谁、接受者又是谁等相关识别信息。<br>标头的长度固定为 18 字节，也就是说，一些标头识别信息的大小不能超过 18 字节。</p>
+<h5 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h5><p>是整个数据包的具体内容，比如文件、字符串之类的。<br>数据部分的长度最小至少为 46 个字节，最长 1500 字节。我们可能会想到，如果小于 46 字节没啥问题可以存放开，那么大于 1500 字节怎么处理呢？很简单，我们就分成两个包处理（分割），两个包存放不下就分割成三个包。</p>
+<h4 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h4><p>广播的作用就是用来查找接收端的 MAC 地址，从而进行下一步的数据传输。注意，广播只是一种发送数据的形式，而计算机想要知道另一台计算机的 MAC 地址是通过 ARP 协议解决的。<br>稍微屡一下，我们想要发送数据，首先要知道对方的唯一标识（MAC 地址），要想知道对方的 MAC 地址，需要使用 ARP 协议，假设我们通过 ARP 协议拿到了接收方的 MAC 地址。<br>我们开始发送数据，将发送方的 MAC 地址和接收方的 MAC 地址封装在数据包中，然后发送端向同一子网络中（同一局域网）中的所有计算机发送该数据包，所有的计算机接收到该包之后，就对数据包的头部进行提取，提取出里边封装好的接收端 MAC 地址和自己的 MAC 地址作比对，如果相同，就说明该数据包是给自己发送的，否则，就会丢弃该数据包，这个过程就是广播的过程。<br>如果不在同一局域网中我们怎么处理？我们平常使用无线网都知道每个无线局域网都会有一个路由器，我们先通过以上的方法将数据发送到路由器，然后路由器转发数据到其他局域网中的计算机。</p>
+<h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><p>将网络地址翻译成对应的物理地址，并通过路由选择算法为分组通过通信子网选择最适当的路径。<br><img src="%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%989.png" alt=""></p>
+<h4 id="IP协议与子网掩码"><a href="#IP协议与子网掩码" class="headerlink" title="IP协议与子网掩码"></a>IP协议与子网掩码</h4><blockquote>
+<p>网络层中最重要的一个协议就是 IP 协议，我们一般发送端给服务端发送数据同时要知道两个地址才能准确送达到对方，分别为 IP 地址和 MAC 地址。</p>
+</blockquote>
+<p>IP 的数据包是直接放入到以太网数据包的“数据”部分的，这样做有一个好处就是“上层的变动完全涉及不到下层的结构”。然后数据包就变成这个样子了。<br><img src="%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_2.png" alt=""></p>
+<p>IP 数据包也分为标头(Head)和数据(Data)两部分。</p>
+<ol>
+<li>标头<br>IP 数据包的标头是 20 ~ 60 字节，主要包括版本、IP 地址等信息。</li>
+<li>数据<br>数据的最大长度为 65515 字节。整个 IP 数据包的最大总长度为 65535 字节。主要存放 IP 数据包的具体内容。</li>
+</ol>
+<p>问题来了，以太网的数据部分最长为 1500 字节，你把一个长度为 65535 字节的 IP 数据包放到以太网的数据包汇总，不会被撑破吗？你在逗我么？确实是呀，那我们就分割数据包吧，分割成几个以太网数据包分开发送。</p>
+<p>将 IP 地址抽象成一种逻辑上的地址，也就是说 MAC 地址是物理上的地址，就是定死了。而IP 地址是动态分配的，不是固定死的。<br>我们就是通过 IP 地址来判断两个计算机设备是否在同一子网络中的，具体利用子网掩码。<br>IP 地址是由 32 个二进制位组成的，也就是四个十进制（如：255.255.255.000）。<br>子网掩码也是由 32 个二进制位组成的，但是只能用 0 或 1 来表示，如11111111.11111111.11111111.00000000。</p>
+<p>有 1 的部分表示网络部分，有 0 表示主机部分，两台计算机的 IP 地址分别和子网掩码进行一种运算（AND 运算），如果结果相同，两台计算机就在同一局域网中，否则就不在同一局域网中。</p>
+<h4 id="ARP-协议"><a href="#ARP-协议" class="headerlink" title="ARP 协议"></a>ARP 协议</h4><blockquote>
+<p>前提：对方的 IP 地址是已知的，通过 DNS 解析得到。</p>
+</blockquote>
+<p>ARP 协议发出一个数据包，包含在以太网的数据包中（其中包含对方的 IP 地址，对方的 MAC 地址栏是 FF:FF:FF:FF:FF:FF）。子网络中的每台主机都会收到这个包，然后从中取出 IP 地址与自身对比，如果两者相同，都做出回复，向对方报告自己的 MAC 地址，否则就丢弃这个包。</p>
+<h3 id="传输层-transport-layer"><a href="#传输层-transport-layer" class="headerlink" title="传输层 transport layer"></a>传输层 transport layer</h3><p>传输层的主要功能就是为了能够实现“端口到端口”的通信。计算机上运行的不同程序都会分配不同的端口，所以才能使得数据能够正确的传送给不同的应用程序。<br>在源端与目的端之间提供可靠的透明数据传输，使上层服务用户不必关系通信子网的实现细节。在协议栈中，传输层位于网络层之上，传输层协议为不同主机上运行的进程提供逻辑通信，而网络层协议为不同主机提供逻辑通信，如下图所示。<br><img src="%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%9810.png" alt=""><br>实际上，网络层可以看作是传输层的一部分，其为传输层提供服务。但对于终端系统而言，网络层对它们而言是透明的，它们只知道传输层的存在，也就是说，在逻辑上它们认为是传输层为它们提供了端对端的通信，这也是分层思想的妙处。</p>
+<h4 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h4><p>加入端口号也需要一套规则，那就是 UDP 协议，但是 UDP 协议有个缺点，一旦进行通信，就不知道对方是否接收到数据了，我们再定义一套规则，让其可以和对方进行确认，那么 TCP 出现了。</p>
+<p>UDP 协议也分为标头(Head)和数据(Data)两部分。</p>
+<ol>
+<li>标头<br>标头的长度为 8 字节。主要存放了发送和接收端口号。</li>
+<li>数据<br>数据部分和标头部分的总长度不超过 65535 字节，正好放进一个IP数据包。</li>
+</ol>
+<p>前边也讲过，数据包之间是包含关系的，所以 UDP 的数据包是放到 IP 数据包的“数据”部分的，IP 数据包又放在以太网数据包的“数据”部分的。</p>
+<p><img src="%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_3.png" alt=""></p>
+<h4 id="TCP-协议"><a href="#TCP-协议" class="headerlink" title="TCP 协议"></a>TCP 协议</h4><p>我们通常说 TCP 三次握手和四次挥手，这就是传输层中完成的。<br>TCP 的数据包和 UDP 相同嵌入在 IP 协议的“数据”部分，TCP 并没有长度限制，但是为了保证传输效率，肯定要进行限制的，TCP 的数据包的长度一般不会超过 IP 数据包的长度了，保证单个的 TCP 数据包不再进行分割。</p>
+<h3 id="会话层-Session-Layer"><a href="#会话层-Session-Layer" class="headerlink" title="会话层 Session Layer"></a>会话层 Session Layer</h3><p>会话层是OSI模型的第五层，是用户应用程序和网络之间的接口，负责在网络中的两节点之间建立、维持和终止通信。</p>
+<h3 id="表示层-Presentation-Layer"><a href="#表示层-Presentation-Layer" class="headerlink" title="表示层 Presentation Layer"></a>表示层 Presentation Layer</h3><blockquote>
+<p>数据的编码，压缩和解压缩，数据的加密和解密</p>
+</blockquote>
+<p>表示层是OSI模型的第六层，它对来自应用层的命令和数据进行解释，以确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。</p>
+<h3 id="应用层-Application-layer"><a href="#应用层-Application-layer" class="headerlink" title="应用层 Application layer"></a>应用层 Application layer</h3><p>为用户的应用进程提供网络通信服务<br>应用层是最高一层，直接面向用户，它的数据包会放在 TCP 的数据包的“数据”部分，那么整个五层的数据包就会变成一下这样。</p>
+<p><img src="%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B_4.png" alt=""></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/05/19/Open-System-Interconnection-Introduction/">Open System Interconnection Introduction</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Rookie</a></p>
+        <p><span>发布时间:</span>2019-05-19, 18:32:22</p>
+        <p><span>最后更新:</span>2020-04-12, 18:38:31</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/05/19/Open-System-Interconnection-Introduction/" title="Open System Interconnection Introduction">https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/08/10/Docker-Introduction/">
+                    Docker Introduction
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/02/05/ReadingNote%E2%80%94%E2%80%94MMML/">
+                    ReadingNote——MMML
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OSI-网络体系结构与-TCP-IP-协议模型"><span class="toc-number">1.</span> <span class="toc-text">OSI 网络体系结构与 TCP&#x2F;IP 协议模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#物理层"><span class="toc-number">1.1.</span> <span class="toc-text">物理层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据链路层-data-link-layer"><span class="toc-number">1.2.</span> <span class="toc-text">数据链路层 data link layer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#以太网协议"><span class="toc-number">1.2.1.</span> <span class="toc-text">以太网协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#标头"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">标头</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#数据"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">数据</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#广播"><span class="toc-number">1.2.2.</span> <span class="toc-text">广播</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络层"><span class="toc-number">1.3.</span> <span class="toc-text">网络层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IP协议与子网掩码"><span class="toc-number">1.3.1.</span> <span class="toc-text">IP协议与子网掩码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARP-协议"><span class="toc-number">1.3.2.</span> <span class="toc-text">ARP 协议</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#传输层-transport-layer"><span class="toc-number">1.4.</span> <span class="toc-text">传输层 transport layer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP协议"><span class="toc-number">1.4.1.</span> <span class="toc-text">UDP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-协议"><span class="toc-number">1.4.2.</span> <span class="toc-text">TCP 协议</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#会话层-Session-Layer"><span class="toc-number">1.5.</span> <span class="toc-text">会话层 Session Layer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表示层-Presentation-Layer"><span class="toc-number">1.6.</span> <span class="toc-text">表示层 Presentation Layer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用层-Application-layer"><span class="toc-number">1.7.</span> <span class="toc-text">应用层 Application layer</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Open System Interconnection Introduction　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://www.rookie-home.xyz/2019/05/19/Open-System-Interconnection-Introduction/';
+            this.page.identifier = '2019/05/19/Open-System-Interconnection-Introduction/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//www-rookie-home-xyz.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/08/10/Docker-Introduction/" title="上一篇: Docker Introduction">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/02/05/ReadingNote%E2%80%94%E2%80%94MMML/" title="下一篇: ReadingNote——MMML">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/03/01/What-is-Code-Refactoring-and-How-To-Refactor/">What is Code Refactoring and How To Refactor</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/09/Use-Regex-in-Python/">Use Regex in Python</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/13/Regex/">Regex</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/03/Docker-Tools/">Docker Tools</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/11/Message-Queue-%E2%80%94%E2%80%94RabbitMQ/">Message Queue ——RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/03/2PC-And-3PC/">2PC And 3PC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/29/Nginx-Error/">Nginx Error</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/20/Nginx-Optimization/">Nginx Optimization</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/09/Nginx-Syntax/">Nginx Syntax</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/">What Can Nginx Do and How to Use Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/03/Introduction-of-Nginx/">Introduction of Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/16/DockerCompose-yml/">DockerCompose.yml</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/How-To-Use-Docker-Compose/">How To Use Docker Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/Docker-Compose-Introduction/">Docker Compose Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/12/Manage-Docker-Container/">Manage Docker Container</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/12/DockerFile/">DockerFile</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/How-To-Use-Docker/">How To Use Docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/10/Docker-Introduction/">Docker Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/19/Open-System-Interconnection-Introduction/">Open System Interconnection Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/05/ReadingNote%E2%80%94%E2%80%94MMML/">ReadingNote——MMML</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019-2020 Rookie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
