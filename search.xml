@@ -541,6 +541,56 @@
     
     
     <entry>
+      <title>Unicode Introduction</title>
+      <link href="/2019/06/01/Unicode-Introduction/"/>
+      <url>/2019/06/01/Unicode-Introduction/</url>
+      
+        <content type="html"><![CDATA[<h4 id="Unicode标准支持什么字符？"><a href="#Unicode标准支持什么字符？" class="headerlink" title="Unicode标准支持什么字符？"></a>Unicode标准支持什么字符？</h4><p>Unicode标准定义了今日所有主流的书写语言中用到的字符。Unicode支持的书写体系包括欧洲的语系、中东的从右至左书写的语系，以及亚洲的多种语系。<br>Unicode标准还包含了标点符号、声调符号、数学符号、科技符号、箭头、各种图形符号、表情符号，等等。Unicode为声调符号（用来改变其他字符的符号，如波浪线~）单独提供了代码，这些代码可以与基础字符组合使用，来表示有声调的字符（如ñ）。Unicode标准9.0版总共提供了128,172个字符的代码，其中包括了全世界的字符、图形和符号。<br>绝大部分的常用字符都能映射到最前面的64K个代码点上，这一区域叫做基本多文种平面（basic multilingual plane，简称为BMP）。还有十六个补充平面用来编码其他字符，目前尚有850,000个未使用的代码点。人们还在考虑在以后的版本中添加更多的字符。<br>Unicode标准还保留了一些代码点供私人使用。供应商或最终用户可以在内部利用这些代码点表示他们自己的字符和符号，或者通过特殊的字体来使用。BMP上有6,400个私有代码点，如果不够的话，补充平面上还有131,068个私有代码点可供使用。</p><h4 id="Unicode字符编码"><a href="#Unicode字符编码" class="headerlink" title="Unicode字符编码"></a>Unicode字符编码</h4><p>字符编码标准不仅定义了每个字符的唯一标识（即字符的数字值，或者叫做代码点），也定义了怎样用比特来表示这个值。<br>Unicode标准定义了三种编码形式，允许同一个数据以一字节、两字节或四字节的格式来传输（即每个代码单元可以是8比特、16比特或32比特）。同一个字符集可以使用所有三种编码形式，它们之间可以互相转换，而不会丢失数据。Unicode联盟建议根据实际需要，选择任何一种方便的编码方式来实现Unicode标准。<br>UTF-8在HTML和类似协议上非常常用。UTF-8使用变长编码。它的优点是，对应于ASCII字符集的那些Unicode字符的字节值与它们在ASCII中的值完全相同，因此使用UTF-8编码的Unicode字符可以在绝大多数已有软件上使用，无需对软件做出任何修改。<br>UTF-16在许多需要平衡性能和存储效率的环境中非常常用。它足够紧凑，所有常用的字符都可以用一个16比特的代码单元来表示，其他字符可以使用一对16比特代码单元来表示。<br>UTF-32在无需顾虑内存空间的情况下使用，它是定长编码，每个字符只有一个代码单元。每个Unicode字符编码成一个32比特代码单元。<br>在所有三种编码中，每个字符最多需要4个字节（32比特）表示。</p><h4 id="数字问题"><a href="#数字问题" class="headerlink" title="数字问题"></a>数字问题</h4><p>Unicode字符集被分成17个核心段，称为“平面”，每个平面又被分成若干区块。每个平面的空间足够容纳65,536（216）个代码点，因此总共有1,114,112个代码点。还有两个“私有区域”平面（#16和#17），可以按照使用者的意愿定义。这两个私有平面共包含131,072个代码点。<br><img src="Unicode_1.png" alt=""><br>第一个平面叫做“基本多文种平面”，或者称为BMP。它包含代码点U+0000到U+FFFF，这个范围内包含了绝大部分常用字符。另外16个平面（U+010000到U+10FFFF）称为补充平面。</p><h4 id="UTF-16代理对"><a href="#UTF-16代理对" class="headerlink" title="UTF-16代理对"></a>UTF-16代理对</h4><blockquote><p>“BMP之外的字符，例如U+1D306 tetragram for centre (𝌆)，在UTF-16编码中只能编码成两个16比特代码单元：0xD834 0xDF06。这种情况称为代理对（surrogate pair）。注意代理对只表示一个字符。</p></blockquote><blockquote><p>“代理对的第一个字符永远在0xD800到0xDBFF的范围内，称为高位代理，或者叫起始字节代理。代理对的第二个代码单元永远在0xDC00到0xDFFF的范围内，称为低位代理，或者叫末端代理。代理对仅在UTF-16中使用。”</p></blockquote><h4 id="组合和解组合"><a href="#组合和解组合" class="headerlink" title="组合和解组合"></a>组合和解组合</h4><p>Unicode包括了一种修改字符形状的机制，大幅扩展了Unicode支持的字符量。使用声调符号进行组合就是其中一种方式。声调符号写在主字符的后面。多个声调符号可以叠在同一个字符上。对于绝大部分常用的字母声调组合，Unicode还包括了预先组合好的版本。<br>特定的字符序列也可以用单个字符表示，称为“预组合字符”（或者叫组合字符，可以解组合的字符）。例如，字符“ü”可以编码成单个代码单元U+00FC “ü”，也可以编码成基本字符U+0075 “u”后接无空白字符U+0308 “¨”。Unicode标准中设置的预组合字符是为了兼容Latin 1等标准，后者包含了许多预组合字符，如“ü”和“ñ”。<br>预组合字符可以进行接组合，以保持一致性，或用于分析。例如，需要将一组名称转换为英文字母时，可以将字符“ü”解组合为“u”后接非空白字符“¨”。解组合后的结果很容易处理，因为该组合字符可以处理成“u”后接一个修饰字符。这样很容易进行按字母顺序排序等，因为修饰字符不会影响字母顺序。Unicode标准为所有预组合字符定义了解组合方式（<a href="https://unicode.org/versions/Unicode8.0.0/ch03.pdf#page=44）。它还定义了正规化的方式，以便为字符提供唯一的表示方法。" target="_blank" rel="noopener">https://unicode.org/versions/Unicode8.0.0/ch03.pdf#page=44）。它还定义了正规化的方式，以便为字符提供唯一的表示方法。</a></p><h4 id="Unicode之谜"><a href="#Unicode之谜" class="headerlink" title="Unicode之谜"></a>Unicode之谜</h4><p>来自Mark Davis的《Unicode之谜》幻灯片（<a href="https://macchiato.com/slides/UnicodeMyths.pdf）。" target="_blank" rel="noopener">https://macchiato.com/slides/UnicodeMyths.pdf）。</a><br>Unicode只不过是16比特编码。一些人误认为Unicode只不过是16比特编码，每个字符占用16比特，因此一共有65,536个可能的字符。实际上这是不正确的。这样是关于Unicode的最大误解，所以也难怪一些人会这么想。</p><p>任何未分配的代码点都可以用于内部用途？错。最终，那些未分配的地方都会被某个字符使用。你应该使用私有用途代码点，或非字符代码点。</p><p>每个Unicode代码点都表示一个字符？错。有许多非字符代码点（FFFE，FFFF，1FFFE，……）还有许多代理代码点、私有代码点和未分配的代码点，还有控制和格式“字符（RLM，ZWNJ，……）</p><p>字符映射是一对一的？错。映射关系也可能是：</p><p>一对多：(ß → SS )</p><p>上下文相关：(…Σ ↔ …ς 和 …ΣΤ… ↔ …στ… )</p><p>语言相关：( I ↔ ı 和 İ ↔ i )</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Encoding </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Unicode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>TCP</title>
+      <link href="/2019/05/23/TCP/"/>
+      <url>/2019/05/23/TCP/</url>
+      
+        <content type="html"><![CDATA[<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><blockquote><p>TCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议。<br>通俗一点的讲，TCP 就是一个双方通信的一个规范标准（协议）。</p></blockquote><h3 id="TCP-头部报文"><a href="#TCP-头部报文" class="headerlink" title="TCP 头部报文"></a>TCP 头部报文</h3><p><img src="TCP1.png" alt=""></p><h4 id="source-port-和-distination-port"><a href="#source-port-和-distination-port" class="headerlink" title="source port 和 distination port"></a>source port 和 distination port</h4><blockquote><p>两者分别为「源端口号」和「目的端口号」</p></blockquote><p>一个数据包（pocket）被解封装成数据段（segment）后就会涉及到连接上层协议的端口问题。</p><p>扩展：应用程序的端口号和应用程序所在主机的 IP 地址统称为 socket（套接字），IP:端口号, 在互联网上 socket 唯一标识每一个应用程序，源端口+源IP+目的端口+目的IP称为”套接字对“，一对套接字就是一个连接，一个客户端与服务器之间的连接。</p><h4 id="Sequence-Number"><a href="#Sequence-Number" class="headerlink" title="Sequence Number"></a>Sequence Number</h4><p>称为「序列号」。用于 TCP 通信过程中某一传输方向上字节流的每个字节的编号，为了确保数据通信的有序性，避免网络中乱序的问题。接收端根据这个编号进行确认，保证分割的数据段在原始数据包的位置。</p><p>PS：初始序列号由自己定，而后绪的序列号由对端的 ACK 决定：SN_x = ACK_y (x 的序列号 = y 发给 x 的 ACK)，这里后边会讲到。</p><h4 id="Acknowledgment-Numbe"><a href="#Acknowledgment-Numbe" class="headerlink" title="Acknowledgment Numbe"></a>Acknowledgment Numbe</h4><p>称为「确认序列号」。确认序列号是接收确认端所期望收到的下一序列号。确认序号应当是上次已成功收到数据字节序号加1，只有当标志位中的 ACK 标志为 1 时该确认序列号的字段才有效。主要用来解决不丢包的问题。<br>若确认号=N，则表明：到序号N-1为止的所有数据都已正确收到。<br>在这里，现在我们只需知道它的作用是什么，就是在数据传输的时候是一段一段的，都是由序列号进行标识的，所以说，接收端每接收一段，之后就想要的下一段的序列号就称为「确认序列号」。</p><h4 id="TCP-Flag"><a href="#TCP-Flag" class="headerlink" title="TCP Flag"></a>TCP Flag</h4><p>TCP 首部中有 6 个标志比特，它们中的多个可同时被设置为 1，主要是用于操控 TCP 的状态机的，依次为URG，ACK，PSH，RST，SYN，FIN。</p><ol><li>ACK<br>这个标识可以理解为发送端发送数据到接收端，发送的时候 ACK 为 0，标识接收端还未应答，一旦接收端接收数据之后，就将 ACK 置为 1，发送端接收到之后，就知道了接收端已经接收了数据。<br>此标志表示「应答域有效」，就是说前面所说的TCP应答号将会包含在 TCP 数据包中；有两个取值：0 和 1，为 1 的时候表示应答域有效，反之为 0；</li><li>SYN<br>表示「同步序列号」，是 TCP 握手的发送的第一个数据包<br>用来建立 TCP 的连接。SYN 标志位和 ACK 标志位搭配使用，当连接请求的时候，SYN=1，ACK=0连接被响应的时候，SYN=1，ACK=1；这个标志的数据包经常被用来进行端口扫描。扫描者发送一个只有 SYN 的数据包，如果对方主机响应了一个数据包回来 ，就表明这台主机存在这个端口。</li><li>FIN<br>表示发送端已经达到数据末尾，也就是说双方的数据传送完成，没有数据可以传送了，发送FIN标志位的 TCP 数据包后，连接将被断开。这个标志的数据包也经常被用于进行端口扫描。<br>这个很好理解，就是说，发送端只剩最后的一段数据了，同时要告诉接收端后边没有数据可以接受了，所以用FIN标识一下，接收端看到这个FIN之后，哦！这是接受的最后的数据，接受完就关闭了。<h4 id="Window-size"><a href="#Window-size" class="headerlink" title="Window size"></a>Window size</h4>称为滑动窗口大小。所说的滑动窗口，用来进行流量控制。</li></ol><h3 id="三次握手与四次挥手"><a href="#三次握手与四次挥手" class="headerlink" title="三次握手与四次挥手"></a>三次握手与四次挥手</h3><h4 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h4><blockquote><p>我要和你建立链接，你真的要和我建立链接么，我真的要和你建立链接，成功</p></blockquote><p>初始状态：客户端处于closed(关闭) 状态，服务器处于listen(监听) 状态。</p><p>第一次握手：Client将标志位SYN置为1，随机产生一个值seq=J，并将该数据包发送给Server，Client进入SYN_SENT状态，等待Server确认。</p><p>第二次握手：Server收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN（服务端）和ACK（服务端）都置为1，ack=J(seq)+1(ACK=1)，随机产生一个值seq=K，并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</p><p>第三次握手：Client收到确认后，检查ack是否为J+1，ACK（服务端）是否为1，如果正确则将标志位ACK（客户端）置为1，ack=K+1，并将该数据包发送给Server，Server检查ack是否为K+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</p><p><img src="%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%981.png" alt=""></p><h4 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h4><blockquote><p>我要和你断开链接；好的，断吧。我也要和你断开链接；好的，断吧）</p></blockquote><p>第一次挥手：Client发送一个FIN，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态。</p><p>第二次挥手：Server收到FIN后，发送一个ACK给Client，确认序号为收到序号+1（与SYN相同，一个FIN占用一个序号），Server进入CLOSE_WAIT状态。此时TCP链接处于半关闭状态，即客户端已经没有要发送的数据了，但服务端若发送数据，则客户端仍要接收。</p><p>第三次挥手：Server发送一个FIN，用来关闭Server到Client的数据传送，Server进入LAST_ACK状态。</p><p>第四次挥手：Client收到FIN后，Client进入TIME_WAIT状态，接着发送一个ACK给Server，确认序号为收到序号+1，Server进入CLOSED状态，完成四次挥手。</p><p><img src="%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%982.png" alt=""></p><h4 id="综合理解"><a href="#综合理解" class="headerlink" title="综合理解"></a>综合理解</h4><p><img src="%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%983.png" alt=""></p><h4 id="为什么-TCP-链接需要三次握手，两次不可以么"><a href="#为什么-TCP-链接需要三次握手，两次不可以么" class="headerlink" title="为什么 TCP 链接需要三次握手，两次不可以么"></a>为什么 TCP 链接需要三次握手，两次不可以么</h4><blockquote><p>“三次握手” 的目的是为了防止已失效的链接请求报文突然又传送到了服务端，因而产生错误。</p></blockquote><p>正常的情况：A 发出连接请求，但因连接请求报文丢失而未收到确认，于是 A 再重传一次连接请求。后来收到了确认，建立了连接。数据传输完毕后，就释放了连接。A 共发送了两个连接请求报文段，其中第一个丢失，第二个到达了 B。没有 “已失效的连接请求报文段”。</p><p>现假定出现了一种异常情况：即 A 发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达 B。本来这是一个早已失效的报文段。但 B 收到此失效的连接请求报文段后，就误认为是 A 再次发出的一个新的连接请求。于是就向 A 发出确认报文段，同意建立连接。</p><p>假设不采用“三次握手”，那么只要 B 发出确认，新的连接就建立了。由于现在 A 并没有发出建立连接的请求，因此不会理睬 B 的确认，也不会向 B 发送数据。但 B 却以为新的运输连接已经建立，并一直等待 A 发来数据。这样，B 的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。</p><h4 id="为什么要四次挥手？"><a href="#为什么要四次挥手？" class="headerlink" title="为什么要四次挥手？"></a>为什么要四次挥手？</h4><p>TCP 协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP 是全双工模式，这就意味着，当 A 向 B 发出 FIN 报文段时，只是表示 A 已经没有数据要发送了，而此时 A 还是能够接受到来自 B 发出的数据；B 向 A 发出 ACK 报文段也只是告诉 A ，它自己知道 A 没有数据要发了，但 B 还是能够向 A 发送数据。所以想要愉快的结束这次对话就需要四次挥手。</p><h2 id="TCP-协议如何来保证传输的可靠性"><a href="#TCP-协议如何来保证传输的可靠性" class="headerlink" title="TCP 协议如何来保证传输的可靠性"></a>TCP 协议如何来保证传输的可靠性</h2><p>TCP 提供一种面向连接的、可靠的字节流服务。其中，面向连接意味着两个使用 TCP 的应用（通常是一个客户和一个服务器）在彼此交换数据之前必须先建立一个 TCP 连接。在一个 TCP 连接中，仅有两方进行彼此通信；而字节流服务意味着两个应用程序通过 TCP 链接交换 8 bit 字节构成的字节流，TCP 不在字节流中插入记录标识符。</p><p>对于可靠性，TCP通过以下方式进行保证：</p><ol><li>数据包校验：目的是检测数据在传输过程中的任何变化，若校验出包有错，则丢弃报文段并且不给出响应，这时TCP发送数据端超时后会重发数据；</li><li>对失序数据包重排序：既然TCP报文段作为IP数据报来传输，而IP数据报的到达可能会失序，因此TCP报文段的到达也可能会失序。TCP将对失序数据进行重新排序，然后才交给应用层；</li><li>丢弃重复数据：对于重复数据，能够丢弃重复数据；</li><li>应答机制：当TCP收到发自TCP连接另一端的数据，它将发送一个确认。这个确认不是立即发送，通常将推迟几分之一秒；</li><li>超时重发：当TCP发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段；</li><li>流量控制：TCP连接的每一方都有固定大小的缓冲空间。TCP的接收端只允许另一端发送接收端缓冲区所能接纳的数据，这可以防止较快主机致使较慢主机的缓冲区溢出，这就是流量控制。TCP使用的流量控制协议是可变大小的滑动窗口协议。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Internet </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> TCP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Open System Interconnection Introduction</title>
       <link href="/2019/05/19/Open-System-Interconnection-Introduction/"/>
       <url>/2019/05/19/Open-System-Interconnection-Introduction/</url>
