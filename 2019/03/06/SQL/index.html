@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Rookie" />
+
+
+
+<meta name="description" content="紧接着上篇Mysql，本文介绍了SQL的书写规则以及sql语句五大分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL">
+<meta property="og:url" content="https://www.rookie-home.xyz/2019/03/06/SQL/index.html">
+<meta property="og:site_name" content="Here | Rookie">
+<meta property="og:description" content="紧接着上篇Mysql，本文介绍了SQL的书写规则以及sql语句五大分类">
+<meta property="article:published_time" content="2019-03-06T06:27:12.000Z">
+<meta property="article:modified_time" content="2020-04-15T10:31:29.658Z">
+<meta property="article:author" content="Rookie">
+<meta property="article:tag" content="Mysql">
+<meta name="twitter:card" content="summary">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Here | Rookie" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>SQL | Here | Rookie</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Rookie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Less Interests, More Interest.</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="true" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">文章分类</a></li>
+                        
+                            <li><a href="/miniapp/">More Interest</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/rookieszh/" target="_blank" rel="noopener" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API/" rel="tag">API</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/" rel="tag">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Browser/" rel="tag">Browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/" rel="tag">Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDOS/" rel="tag">DDOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase-Design/" rel="tag">DataBase Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function/" rel="tag">Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MessageQueue/" rel="tag">MessageQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multimodal/" rel="tag">Multimodal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI/" rel="tag">OSI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Refactor-Code/" rel="tag">Refactor Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/" rel="tag">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session/" rel="tag">Session</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/" rel="tag">Statistics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unicode/" rel="tag">Unicode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/index/" rel="tag">index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Rookie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Rookie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Less Interests, More Interest.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">文章分类</a></li>
+                
+                    <li><a href="/miniapp/">More Interest</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/rookieszh/" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-SQL" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/06/SQL/" class="article-date">
+      <time datetime="2019-03-06T06:27:12.000Z" itemprop="datePublished">2019-03-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SQL
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/SQL/">SQL</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>SQL——Structured Query Language 结构化查询语言</p>
+</blockquote>
+<h4 id="书写规则"><a href="#书写规则" class="headerlink" title="书写规则"></a>书写规则</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 分号结尾</span><br><span class="line">2. 关键词不区分大小写</span><br><span class="line">3. % 任意字符</span><br><span class="line">4. _ 单个字符</span><br></pre></td></tr></table></figure>
+<h4 id="注释方法"><a href="#注释方法" class="headerlink" title="注释方法"></a>注释方法</h4><h5 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释内容</span></span><br><span class="line"><span class="comment">-- 注释内容，注意有空格</span></span><br></pre></td></tr></table></figure>
+<h5 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*注释*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="字段类型-修饰"><a href="#字段类型-修饰" class="headerlink" title="字段类型/修饰"></a>字段类型/修饰</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">unsigned：无符号</span><br><span class="line">auto_increment：自增</span><br><span class="line">default：默认值</span><br><span class="line"><span class="keyword">comment</span>：对字段解释说明</span><br><span class="line"><span class="literal">null</span>：空</span><br><span class="line"><span class="keyword">not</span> <span class="literal">null</span>：非空</span><br><span class="line"><span class="keyword">unique</span>：唯一索引</span><br><span class="line"><span class="keyword">index</span>：普通索引</span><br><span class="line">primary <span class="keyword">key</span>：主键</span><br><span class="line">auto_increment必须指定为primary <span class="keyword">key</span></span><br><span class="line">zerofill：位数不足的地方补零</span><br></pre></td></tr></table></figure>
+<h4 id="语句运算符"><a href="#语句运算符" class="headerlink" title="语句运算符"></a>语句运算符</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">= ：赋值和判断都是，没有 ==</span><br><span class="line">!=、&lt;&gt;、&lt;、&gt;、&lt;=、&gt;=</span><br><span class="line">OR：或者</span><br><span class="line">AND：且</span><br><span class="line">BETWEEN...AND：在...和...之间（范围）</span><br><span class="line">IN：eg.in(1,2,3,4)给定具体范围</span><br><span class="line">NOT IN</span><br></pre></td></tr></table></figure>
+<h4 id="SQL语句的分类"><a href="#SQL语句的分类" class="headerlink" title="SQL语句的分类"></a>SQL语句的分类</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、DDL（data defination language）数据定义语言，作用：创建 删除 修改 库表结构</span><br><span class="line">2、DML（data manipulation language）数据操作语言，作用：增 删 改表的记录</span><br><span class="line">3、DCL（data control language）数据控制语言，作用：用户的创建以及授权</span><br><span class="line">4、DQL（data query language）数据查询语言，作用：查询数据</span><br></pre></td></tr></table></figure>
+<h5 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看数据库</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">DATABASES</span>;</span><br><span class="line"><span class="comment">-- 切换数据库</span></span><br><span class="line"><span class="keyword">USE</span> 数据库名;</span><br><span class="line"><span class="comment">-- 创建数据库</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> 数据库名;</span><br><span class="line"><span class="comment">-- 删除数据库</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> 数据库名;</span><br><span class="line"><span class="comment">-- 查看数据库版本，字符编码等信息</span></span><br><span class="line">\s</span><br><span class="line"><span class="comment">-- 查看数据库所用什么字符型式</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'%char%'</span>;</span><br><span class="line"><span class="comment">-- 解决显示乱码问题</span></span><br><span class="line">修改 my.ini 配置文件中 default-character-<span class="keyword">set</span>=gbk;</span><br><span class="line"><span class="comment">-- 数据库导出数据</span></span><br><span class="line">mysqldump -uroot -p密码 数据库名称 表名称 &gt;表名称.sql</span><br><span class="line"><span class="comment">-- 修改结束符</span></span><br><span class="line">delimiter 自定义的结束符;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建数据表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> 表名(</span><br><span class="line">    字段名 字段类型 其他关键词,</span><br><span class="line">    ...</span><br><span class="line">)</span><br><span class="line"><span class="comment">-- 查看当前数据库的表</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">TABLES</span>;</span><br><span class="line"><span class="comment">-- 查看表结构</span></span><br><span class="line">DESC 表名;</span><br><span class="line"><span class="comment">-- 查看创建表的SQL语句</span></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> TABEL 表名;</span><br><span class="line"><span class="comment">-- 删除表，但有外键关联的时候不能直接删除主表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> 表名;</span><br><span class="line"><span class="comment">-- 添加表字段</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">ADD</span> (字段名 字段类型, 字段名 字段类型, ...); <span class="comment">-- 默认添加到所有字段之后</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">ADD</span> 字段名<span class="number">1</span> 字段类型 <span class="keyword">AFTER</span>/<span class="keyword">FIRST</span> 字段名<span class="number">2</span>; <span class="comment">-- 将字段名1添加到字段名2之后/放在表头</span></span><br><span class="line"><span class="comment">-- 删除表字段</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">DROP</span> 字段名;</span><br><span class="line"><span class="comment">-- 修改表字段类型</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">MODIFY</span> 字段名 字段类型; <span class="comment">-- 别忘了not null</span></span><br><span class="line"><span class="comment">-- 修改表字段名</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">CHANGE</span> 原字段名 新字段名 字段类型;</span><br><span class="line"><span class="comment">-- 修改表名</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">RENAME</span> (<span class="keyword">TO</span>) 新表名;</span><br><span class="line"><span class="comment">-- 外键关联主键，fk为约束名</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tbl_book(</span><br><span class="line">  <span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">  bookTypeId <span class="built_in">INT</span>,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> <span class="string">`fk`</span> <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (<span class="string">`bookTypeId`</span>) <span class="keyword">REFERENCES</span> <span class="string">`tbl_bookType`</span>(<span class="string">`id`</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h5 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看表内容</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> 表名;</span><br><span class="line"><span class="comment">-- 插入字段值</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> 表名(列<span class="number">1</span>, 列<span class="number">2</span>, 列<span class="number">3.</span>..) <span class="keyword">VALUES</span>(列值<span class="number">1</span>, 列值<span class="number">2.</span>....); <span class="comment">-- 列和值是一一对应的</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> 表名 <span class="keyword">values</span>(值<span class="number">1</span>, 值<span class="number">2</span>,...,值n); <span class="comment">-- 这样做需要把每个字段的值都一一对应起来</span></span><br><span class="line"><span class="comment">-- 更新字段值</span></span><br><span class="line"><span class="keyword">UPDATE</span> 表名 <span class="keyword">SET</span> 列<span class="number">1</span>=列值<span class="number">1</span>, 列<span class="number">2</span>=列值<span class="number">2</span>, ... <span class="keyword">WHERE</span> 条件; <span class="comment">-- 不加where条件会修改所有的记录</span></span><br><span class="line"><span class="comment">-- 删除字段值，同样不加where条件会删除所有的记录</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> 表名 <span class="keyword">WHERE</span> 条件;</span><br><span class="line"><span class="comment">-- 删除整个表，这个是DDL的指令，好处是再次插入id从1开始。</span></span><br><span class="line"><span class="comment">-- 用delete则是从后面继续插入，前面的id不会再次使用</span></span><br><span class="line"><span class="keyword">TRUNCATE</span> 表名;</span><br></pre></td></tr></table></figure>
+<h5 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 修改登录权限，数据库mysql中的表user</span></span><br><span class="line"><span class="comment">-- 表中字段Host代表可登陆ip</span></span><br><span class="line"><span class="comment">-- 登录默认 -h 是localhost/127.0.0.1。</span></span><br><span class="line"><span class="comment">-- 刷新权限</span></span><br><span class="line"><span class="keyword">flush</span> privilges;</span><br><span class="line"><span class="comment">-- 普通用户的创建</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">'用户名'</span>@<span class="string">'指定ip'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'用户名密码'</span>; <span class="comment">-- 指定ip处可输入%代表匹配所有ip（不安全）</span></span><br><span class="line"><span class="comment">-- 删除用户</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> <span class="string">'用户名'</span>@<span class="string">'指定ip'</span>;</span><br><span class="line"><span class="comment">-- 用户的授权，权限一般有 insert update delete select</span></span><br><span class="line"><span class="keyword">grant</span> 权限<span class="number">1</span>,权限<span class="number">2</span>,...on 数据库名.* <span class="keyword">to</span> <span class="string">'用户名'</span>@<span class="string">'ip地址或者%'</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">on</span> *.* <span class="keyword">to</span> <span class="string">'用户名'</span>@<span class="string">'ip地址或者%'</span>;</span><br><span class="line"><span class="comment">-- 创建用户并授权</span></span><br><span class="line"><span class="keyword">grant</span> 权限<span class="number">1</span>,权限<span class="number">2</span>,...on 数据库名.* <span class="keyword">to</span> <span class="string">'用户名（新建）'</span>@<span class="string">'ip地址或者%'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'新密码'</span>;</span><br><span class="line"><span class="comment">-- 撤销权限</span></span><br><span class="line"><span class="keyword">revoke</span> 权限<span class="number">1</span>,权限<span class="number">2</span>,.. <span class="keyword">on</span> 数据库名.* <span class="keyword">from</span> <span class="string">'用户名'</span>@<span class="string">'ip地址或者%'</span>;</span><br><span class="line"><span class="comment">-- 查看权限</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">grants</span> <span class="keyword">for</span> <span class="string">'用户名'</span>@<span class="string">'IP地址'</span>(\G)</span><br><span class="line"><span class="comment">-- 删除用户</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span><span class="string">'用户名'</span>@<span class="string">'IP地址'</span></span><br></pre></td></tr></table></figure>
+<h5 id="DQL"><a href="#DQL" class="headerlink" title="DQL"></a>DQL</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ###########################################################</span></span><br><span class="line"><span class="comment">-- ##################### 0. 常用关键字 ########################</span></span><br><span class="line"><span class="comment">-- ###########################################################</span></span><br><span class="line">WHERE 条件;</span><br><span class="line">AS 新的字段名;</span><br><span class="line">\G; <span class="comment">-- 更格式化的输出</span></span><br><span class="line">EXISTS <span class="comment">--假如子查询查询到记录，则进行外层查询，否则不执行外层查询</span></span><br><span class="line">ANY <span class="comment">--表示满足其中任一条件</span></span><br><span class="line">ALL <span class="comment">--表示满足所有条件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- ###########################################################</span></span><br><span class="line"><span class="comment">-- ###################### 1. 普通查询 #########################</span></span><br><span class="line"><span class="comment">-- ###########################################################</span></span><br><span class="line"><span class="comment">-- SELECT 普通查询</span></span><br><span class="line"><span class="keyword">SELECT</span> 字段名<span class="number">1</span>,字段名<span class="number">2</span>,..... <span class="keyword">FROM</span> 表名;</span><br><span class="line"><span class="comment">-- DISTINCT 过滤掉重复的值</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> 字段名<span class="number">1</span>,字段名<span class="number">2</span>,... <span class="keyword">FROM</span> 表名;</span><br><span class="line"><span class="comment">-- CONCAT 连接数个字段（无空格连接）</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CONCAT</span>(字段名<span class="number">1</span>,字段名<span class="number">2</span>,...) <span class="keyword">FROM</span> 表名;</span><br><span class="line"><span class="comment">-- CONCAT_WS 连接数个字段并重新命名并加入分隔符</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CONCAT_WS</span>(<span class="string">'你定义的分隔符'</span>,字段名<span class="number">1</span>,字段名<span class="number">2</span>,.....) <span class="keyword">FROM</span> 表名;</span><br><span class="line"><span class="comment">-- 模糊查询（LIKE只适用于数据量很小的情况下，数据量大的话使用sphinx）</span></span><br><span class="line"><span class="keyword">SELECT</span> 字段名<span class="number">1</span>,字段名<span class="number">2</span>,..... <span class="keyword">FROM</span> 表名 字段名 <span class="keyword">LIKE</span> <span class="string">'%模糊条件%'</span>;</span><br><span class="line"><span class="comment">-- ORDER BY 排序</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> 表名 <span class="keyword">ORDER</span> <span class="keyword">BY</span> 字段名 <span class="keyword">ASC</span>/<span class="keyword">DESC</span>; <span class="comment">-- 升序或降序</span></span><br><span class="line"><span class="comment">-- GROUP BY，分组查询，单独使用毫无意义</span></span><br><span class="line"><span class="comment">-- 与 GROUP_CONCAT 一起使用，GROUP_CONCAT里包含的字段，以默认逗号连接，以 GROUP BY 的字段为分类标准输出</span></span><br><span class="line"><span class="keyword">SELECT</span> mathpixtype,<span class="keyword">GROUP_CONCAT</span>(nickname) <span class="keyword">FROM</span> weixinuserinfo <span class="keyword">GROUP</span> <span class="keyword">BY</span> mathpixtype;</span><br><span class="line">+<span class="comment">--------------+-----------------------------------+</span></span><br><span class="line">| mathpixtype  | group_concat(nickname)            |</span><br><span class="line">+<span class="comment">--------------+-----------------------------------+</span></span><br><span class="line">| asciimath    | presume                           |</span><br><span class="line">| latex_styled | 王雅萱                            |</span><br><span class="line">| mathml       | 痒肉多,悦,城北徐公,Jasper,Suntion3 |</span><br><span class="line">| text         | 乐多,Law.D.Ares,李蕴斐Amber,Rookie |</span><br><span class="line">+<span class="comment">--------------+-----------------------------------+</span></span><br><span class="line"><span class="comment">-- 与聚合函数 COUNT 一起使用</span></span><br><span class="line"><span class="keyword">SELECT</span> mathpixtype,<span class="keyword">COUNT</span>(nickname) <span class="keyword">FROM</span> weixinuserinfo <span class="keyword">GROUP</span> <span class="keyword">BY</span> mathpixtype;</span><br><span class="line">+<span class="comment">--------------+-----------------+</span></span><br><span class="line">| mathpixtype  | count(nickname) |</span><br><span class="line">+<span class="comment">--------------+-----------------+</span></span><br><span class="line">| asciimath    |               1 |</span><br><span class="line">| latex_styled |               1 |</span><br><span class="line">| mathml       |              17 |</span><br><span class="line">| text         |               4 |</span><br><span class="line">+<span class="comment">--------------+-----------------+</span></span><br><span class="line"><span class="comment">-- 与 HAVING 一起使用，选取条件限制输出结果</span></span><br><span class="line"><span class="keyword">SELECT</span> mathpixtype,<span class="keyword">COUNT</span>(nickname) <span class="keyword">FROM</span> weixinuserinfo <span class="keyword">GROUP</span> <span class="keyword">BY</span> mathpixtype <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(nickname)&gt;<span class="number">3</span>;</span><br><span class="line">+<span class="comment">-------------+-----------------+</span></span><br><span class="line">| mathpixtype | count(nickname) |</span><br><span class="line">+<span class="comment">-------------+-----------------+</span></span><br><span class="line">| mathml      |              17 |</span><br><span class="line">| text        |               4 |</span><br><span class="line">+<span class="comment">-------------+-----------------+</span></span><br><span class="line"><span class="comment">-- 与 WITH ROLLUP 一起使用，最后加入一个总和行</span></span><br><span class="line"><span class="keyword">SELECT</span> mathpixtype,<span class="keyword">COUNT</span>(nickname) <span class="keyword">FROM</span> weixinuserinfo <span class="keyword">GROUP</span> <span class="keyword">BY</span> mathpixtype <span class="keyword">WITH</span> <span class="keyword">ROLLUP</span>;</span><br><span class="line">+<span class="comment">--------------+-----------------+</span></span><br><span class="line">| mathpixtype  | count(nickname) |</span><br><span class="line">+<span class="comment">--------------+-----------------+</span></span><br><span class="line">| asciimath    |               1 |</span><br><span class="line">| latex_styled |               1 |</span><br><span class="line">| mathml       |              17 |</span><br><span class="line">| text         |               4 |</span><br><span class="line">| NULL         |              23 |</span><br><span class="line">+<span class="comment">--------------+-----------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- ###########################################################</span></span><br><span class="line"><span class="comment">-- ###################### 2. 聚合函数 #########################</span></span><br><span class="line"><span class="comment">-- ###########################################################</span></span><br><span class="line"><span class="comment">-- 查询表的记录数，不适合数据量大的数据库，解决办法可以直接看id最后一条</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> 表名;</span><br><span class="line"><span class="comment">-- 查询此列的和</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(字段名) <span class="keyword">FROM</span> 表名;</span><br><span class="line"><span class="comment">-- 查询此列的平均值</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">AVG</span>(字段名) <span class="keyword">FROM</span> 表名;</span><br><span class="line"><span class="comment">-- 查询此列的最大值</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MAX</span>(字段名) <span class="keyword">FROM</span> 表名;</span><br><span class="line"><span class="comment">-- 查询此列的最小值</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MIN</span>(字段名) <span class="keyword">FROM</span> 表名;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ###########################################################</span></span><br><span class="line"><span class="comment">-- ###################### 3. 连接查询 #########################</span></span><br><span class="line"><span class="comment">-- ###########################################################</span></span><br><span class="line"><span class="comment">-- 内连接查询</span></span><br><span class="line"><span class="keyword">SELECT</span> s.name,m.mark <span class="keyword">from</span> student <span class="keyword">as</span> s ,          mark <span class="keyword">as</span> m <span class="keyword">where</span>    s.id=m.stu_id;</span><br><span class="line"><span class="keyword">SELECT</span> s.name,m.mark <span class="keyword">from</span> student <span class="keyword">as</span> s <span class="keyword">inner</span> <span class="keyword">join</span> mark <span class="keyword">as</span> m <span class="keyword">where</span>/<span class="keyword">on</span> s.id=m.stu_id;</span><br><span class="line"><span class="comment">-- 左连接查询(先全列出左边的表，再以左边的表为基础，右边的表对应过去)</span></span><br><span class="line"><span class="keyword">SELECT</span> s.name,m.mark <span class="keyword">from</span> student <span class="keyword">as</span> s <span class="keyword">left</span> <span class="keyword">join</span> mark <span class="keyword">as</span> m <span class="keyword">on</span> s.id=m.stu_id;</span><br><span class="line"><span class="comment">-- 右连接查询</span></span><br><span class="line"><span class="keyword">SELECT</span> s.name,m.mark <span class="keyword">from</span> student <span class="keyword">as</span> s <span class="keyword">right</span> <span class="keyword">join</span> mark <span class="keyword">as</span> m <span class="keyword">on</span> s.id=m.stu_id;</span><br><span class="line"><span class="comment">-- 联合查询（字段数量一定要一致）</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span> <span class="keyword">from</span> student <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> mark <span class="keyword">from</span> mark;</span><br><span class="line"><span class="comment">-- 以下两句等价</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> student <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span>(<span class="number">2</span>,<span class="number">5</span>);</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> student <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">2</span> <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">SELECT</span> * <span class="keyword">from</span> student <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">5</span>;</span><br><span class="line"><span class="comment">-- 子查询</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> student <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span>(<span class="keyword">select</span> stu_id <span class="keyword">from</span> mark);</span><br><span class="line"><span class="comment">-- 分页查询 LIMIT</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> student <span class="keyword">limit</span> <span class="number">3</span>; <span class="comment">-- 限制查询条数为3</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> student <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span> <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">1</span>; <span class="comment">-- 取最大id</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> student <span class="keyword">limit</span> <span class="number">3</span>,<span class="number">2</span>; <span class="comment">-- 限制查询条数为从第三个开始取两个</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 动态SQL中连接AND条件</span></span><br><span class="line">where 1=1 是为了避免where 关键字后面的第一个词直接就是 “and”而导致语法错误。</span><br></pre></td></tr></table></figure>
+<h5 id="DTL-事务控制语言"><a href="#DTL-事务控制语言" class="headerlink" title="DTL 事务控制语言"></a>DTL 事务控制语言</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 关闭自动提交</span></span><br><span class="line"><span class="keyword">set</span> autocommit=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 开启事务</span></span><br><span class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</span><br><span class="line"><span class="comment">-- 如果开启事务后所有语句执行都没有问题</span></span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"><span class="comment">-- 如果有执行失败的语句</span></span><br><span class="line"><span class="keyword">rollback</span>; <span class="comment">-- 记得set autocommit=0关闭自动提交</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/03/06/SQL/">SQL</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Rookie</a></p>
+        <p><span>发布时间:</span>2019-03-06, 14:27:12</p>
+        <p><span>最后更新:</span>2020-04-15, 18:31:29</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/03/06/SQL/" title="SQL">https://www.rookie-home.xyz/2019/03/06/SQL/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2019/03/06/SQL/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/03/07/Transaction-ACID/">
+                    Transaction ACID
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/03/02/Mysql/">
+                    Mysql
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#书写规则"><span class="toc-number">1.</span> <span class="toc-text">书写规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注释方法"><span class="toc-number">2.</span> <span class="toc-text">注释方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#单行注释"><span class="toc-number">2.1.</span> <span class="toc-text">单行注释</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#多行注释"><span class="toc-number">2.2.</span> <span class="toc-text">多行注释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字段类型-修饰"><span class="toc-number">3.</span> <span class="toc-text">字段类型&#x2F;修饰</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#语句运算符"><span class="toc-number">4.</span> <span class="toc-text">语句运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL语句的分类"><span class="toc-number">5.</span> <span class="toc-text">SQL语句的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DDL"><span class="toc-number">5.1.</span> <span class="toc-text">DDL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DML"><span class="toc-number">5.2.</span> <span class="toc-text">DML</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DCL"><span class="toc-number">5.3.</span> <span class="toc-text">DCL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DQL"><span class="toc-number">5.4.</span> <span class="toc-text">DQL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DTL-事务控制语言"><span class="toc-number">5.5.</span> <span class="toc-text">DTL 事务控制语言</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"SQL　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://www.rookie-home.xyz/2019/03/06/SQL/';
+            this.page.identifier = '2019/03/06/SQL/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//www-rookie-home-xyz.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/03/07/Transaction-ACID/" title="上一篇: Transaction ACID">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/03/02/Mysql/" title="下一篇: Mysql">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/03/01/What-is-Code-Refactoring-and-How-To-Refactor/">What is Code Refactoring and How To Refactor</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/09/Use-Regex-in-Python/">Use Regex in Python</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/01/Design-A-Secure-API/">Design A Secure API</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/17/Function-And-Mapping/">Function And Mapping</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/13/Regex/">Regex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/06/Monte-Carlo-Programming/">Monte Carlo Programming</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/04/DDOS/">DDOS</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/03/Secure-The-Server/">Secure The Server</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/03/Docker-Tools/">Docker Tools</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/11/Message-Queue-%E2%80%94%E2%80%94RabbitMQ/">Message Queue ——RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/03/2PC-And-3PC/">2PC And 3PC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/29/Nginx-Error/">Nginx Error</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/20/Nginx-Optimization/">Nginx Optimization</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/09/Nginx-Syntax/">Nginx Syntax</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/">What Can Nginx Do and How to Use Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/03/Introduction-of-Nginx/">Introduction of Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/16/DockerCompose-yml/">DockerCompose.yml</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/How-To-Use-Docker-Compose/">How To Use Docker Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/Docker-Compose-Introduction/">Docker Compose Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/12/Manage-Docker-Container/">Manage Docker Container</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/12/DockerFile/">DockerFile</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/How-To-Use-Docker/">How To Use Docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/10/Docker-Introduction/">Docker Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/07/Json-Web-Token/">Json Web Token</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/05/Cookie/">Cookie</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/03/How-The-Browser-Works/">How The Browser Works</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/Unicode-Introduction/">Unicode Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/23/TCP/">TCP</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/19/Open-System-Interconnection-Introduction/">Open System Interconnection Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/Avoid-Accident-of-Redis/">Avoid Accident of Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Redis-Persistence/">Redis Persistence</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/15/Redis-RAM/">Redis RAM</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/Redis-Transcation/">Redis Transcation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/12/Redis-Data-Structure/">Redis Data Structure</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/Redis-Operation/">Redis Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/Redis-Introduction/">Redis Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/01/NoSQL/">NoSQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/Database-Design/">Database Design</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/13/Mysql-Optimization/">Mysql Optimization</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/09/Additional-SQL/">Additional SQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/07/Transaction-ACID/">Transaction ACID</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/06/SQL/">SQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/02/Mysql/">Mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/05/ReadingNote%E2%80%94%E2%80%94MMML/">ReadingNote——MMML</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019-2020 Rookie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

