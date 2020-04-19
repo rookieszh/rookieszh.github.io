@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Rookie" />
+
+
+
+<meta name="description" content="MIT Linear Algebra Review ——01 Geometric interpretation of equations">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linear Algebra Review 01">
+<meta property="og:url" content="https://www.rookie-home.xyz/2020/04/18/Linear-Algebra-Review-01/index.html">
+<meta property="og:site_name" content="Here | Rookie">
+<meta property="og:description" content="MIT Linear Algebra Review ——01 Geometric interpretation of equations">
+<meta property="og:image" content="https://www.rookie-home.xyz/2020/04/18/Linear-Algebra-Review-01/plot1.png">
+<meta property="og:image" content="https://www.rookie-home.xyz/2020/04/18/Linear-Algebra-Review-01/plot2.png">
+<meta property="article:published_time" content="2020-04-18T04:30:42.000Z">
+<meta property="article:modified_time" content="2020-04-19T15:10:00.032Z">
+<meta property="article:author" content="Rookie">
+<meta property="article:tag" content="LinearAlgebra">
+<meta property="article:tag" content="MIT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.rookie-home.xyz/2020/04/18/Linear-Algebra-Review-01/plot1.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Here | Rookie" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/avatar.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Linear Algebra Review 01 | Here | Rookie</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Rookie</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Less Interests, More Interest.</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="true" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">文章分类</a></li>
+                        
+                            <li><a href="/miniapp/">More Interest</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/rookieszh/" target="_blank" rel="noopener" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2PC/" rel="tag">2PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3PC/" rel="tag">3PC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API/" rel="tag">API</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BigData/" rel="tag">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Browser/" rel="tag">Browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/" rel="tag">Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDOS/" rel="tag">DDOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase-Design/" rel="tag">DataBase Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function/" rel="tag">Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/" rel="tag">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/" rel="tag">LinearAlgebra</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MIT/" rel="tag">MIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MessageQueue/" rel="tag">MessageQueue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multimodal/" rel="tag">Multimodal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI/" rel="tag">OSI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Refactor-Code/" rel="tag">Refactor Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/" rel="tag">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/" rel="tag">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session/" rel="tag">Session</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/" rel="tag">Statistics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unicode/" rel="tag">Unicode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/index/" rel="tag">index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/transaction/" rel="tag">transaction</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Rookie</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Rookie</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Less Interests, More Interest.</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">文章分类</a></li>
+                
+                    <li><a href="/miniapp/">More Interest</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:rookieszh@gmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/rookieszh/" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Linear-Algebra-Review-01" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/04/18/Linear-Algebra-Review-01/" class="article-date">
+      <time datetime="2020-04-18T04:30:42.000Z" itemprop="datePublished">2020-04-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linear Algebra Review 01
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Mathematics/">Mathematics</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinearAlgebra/" rel="tag">LinearAlgebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIT/" rel="tag">MIT</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="第一讲：方程组的几何解释"><a href="#第一讲：方程组的几何解释" class="headerlink" title="第一讲：方程组的几何解释"></a>第一讲：方程组的几何解释</h2><p>我们从求解线性方程组来开始这门课，从一个普通的例子讲起：方程组有$2$个未知数，一共有$2$个方程，分别来看方程组的“行图像”和“列图像”。</p>
+<p>有方程组$\begin{cases}2x&amp;-y&amp;=0\newline -x&amp;+2y&amp;=3\end{cases}$，写作矩阵形式有$\begin{bmatrix}2&amp;-1\newline -1&amp;2\end{bmatrix}\begin{bmatrix}x\newline y\end{bmatrix}=\begin{bmatrix}0\newline 3\end{bmatrix}$，通常我们把第一个矩阵称为系数矩阵$A$，将第二个矩阵称为向量$x$，将第三个矩阵称为向量$b$，于是线性方程组可以表示为$Ax=b$。</p>
+<p>我们来看行图像，即直角坐标系中的图像：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">x = [<span class="number">-2</span>, <span class="number">2</span>, <span class="number">-2</span>, <span class="number">2</span>]</span><br><span class="line">y = [<span class="number">-4</span>, <span class="number">4</span>, <span class="number">0.5</span>, <span class="number">2.5</span>]</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">plt.axhline(y=<span class="number">0</span>, c=<span class="string">'black'</span>)</span><br><span class="line">plt.axvline(x=<span class="number">0</span>, c=<span class="string">'black'</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(x[:<span class="number">2</span>], y[:<span class="number">2</span>], x[<span class="number">2</span>:], y[<span class="number">2</span>:])</span><br><span class="line"></span><br><span class="line">plt.draw()</span><br></pre></td></tr></table></figure>
+<p><img src="plot1.png" alt=""></p>
+<p>上图是我们都很熟悉的直角坐标系中两直线相交的情况，接下来我们按列观察方程组$x\begin{bmatrix}2\newline -1\end{bmatrix}+y\begin{bmatrix}-1\newline 2\end{bmatrix}=\begin{bmatrix}0\newline 3\end{bmatrix}$（我们把第一个向量称作$col_1$，第二个向量称作$col_2$，以表示第一列向量和第二列向量），要使得式子成立，需要第一个向量加上两倍的第二个向量，即$1\begin{bmatrix}2\newline -1\end{bmatrix}+2\begin{bmatrix}-1\newline 2\end{bmatrix}=\begin{bmatrix}0\newline 3\end{bmatrix}$。</p>
+<p>现在来看列图像，在二维平面上画出上面的列向量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">plt.axhline(y=<span class="number">0</span>, c=<span class="string">'black'</span>)</span><br><span class="line">plt.axvline(x=<span class="number">0</span>, c=<span class="string">'black'</span>)</span><br><span class="line">ax = plt.gca()</span><br><span class="line">ax.set_xlim(<span class="number">-2.5</span>, <span class="number">2.5</span>)</span><br><span class="line">ax.set_ylim(<span class="number">-3</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">arrow_vector = partial(plt.arrow, width=<span class="number">0.01</span>, head_width=<span class="number">0.1</span>, head_length=<span class="number">0.2</span>, length_includes_head=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">arrow_vector(<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">-1</span>, color=<span class="string">'g'</span>)</span><br><span class="line">arrow_vector(<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">2</span>, color=<span class="string">'c'</span>)</span><br><span class="line">arrow_vector(<span class="number">2</span>, <span class="number">-1</span>, <span class="number">-2</span>, <span class="number">4</span>, color=<span class="string">'b'</span>)</span><br><span class="line">arrow_vector(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, width=<span class="number">0.05</span>, color=<span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line">plt.draw()</span><br></pre></td></tr></table></figure>
+<p><img src="plot2.png" alt=""></p>
+<p>如图，绿向量$col_1$与蓝向量（两倍的蓝绿向量$col_2$）合成红向量$b$。</p>
+<p>接着，我们继续观察 $x\begin{bmatrix}2\newline -1\end{bmatrix}+y\begin{bmatrix}-1\newline 2\end{bmatrix}=\begin{bmatrix}0\newline 3\end{bmatrix}$，$col_1,col_2$ 的某种线性组合得到了向量$b$，那么$col_1,col_2$的所有线性组合能够得到什么结果？它们将铺满整个平面。</p>
+<p>下面进入三个未知数的方程组：$\begin{cases}2x&amp;-y&amp;&amp;=0\newline -x&amp;+2y&amp;-z&amp;=-1\newline &amp;-3y&amp;+4z&amp;=4\end{cases}$，写作矩阵形式$A=\begin{bmatrix}2&amp;-1&amp;0\newline -1&amp;2&amp;-1\newline 0&amp;-3&amp;4\end{bmatrix},\ b=\begin{bmatrix}0\newline -1\newline 4\end{bmatrix}$。</p>
+<p>在三维直角坐标系中，每一个方程将确定一个平面，而例子中的三个平面会相交于一点，这个点就是方程组的解。</p>
+<p>同样的，将方程组写成列向量的线性组合，观察列图像：$x\begin{bmatrix}2\newline -1\newline 0\end{bmatrix}+y\begin{bmatrix}-1\newline 2\newline -3\end{bmatrix}+z\begin{bmatrix}0\newline -1\newline 4\end{bmatrix}=\begin{bmatrix}0\newline -1\newline 4\end{bmatrix}$。易知我们需要的线性组合为$x=0,y=0,z=1$。假设我们令$b=\begin{bmatrix}1\newline 1\newline -3\end{bmatrix}$，则需要的线性组合为$x=1,y=1,z=0$。</p>
+<p>我们并不能总是这么轻易的求出正确的线性组合，所以下一讲将介绍消元法——一种线性方程组的系统性解法。</p>
+<p>现在，我们需要考虑，对于任意的$b$，是否都能求解$Ax=b$？用列向量线性组合的观点阐述就是，列向量的线性组合能否覆盖整个三维向量空间？对上面这个例子，答案是肯定的。但是如果三个向量在同一个平面上，问题就出现了——那么他们的线性组合也一定都在这个平面上。举个例子，比如$col_3=col_1+col_2$，那么不管怎么组合，这三个向量的结果都逃不出这个平面，因此当$b$在平面内，方程组有解，而当$b$不在平面内，这三个列向量就无法构造出$b$。这种情形称为<strong>奇异</strong>、<strong>矩阵不可逆</strong>。如果推广到九维空间，即每个方程有九个未知数，共九个方程，那么也是一样的。</p>
+<p>接下来介绍方程的矩阵形式$Ax=b$，这是一种乘法运算，举个例子，取$A=\begin{bmatrix}2&amp;5\newline 1&amp;3\end{bmatrix},\ x=\begin{bmatrix}1\newline 2\end{bmatrix}$，来看如何计算矩阵乘以向量：</p>
+<ul>
+<li>我们依然使用列向量线性组合的方式，一次计算一列，$\begin{bmatrix}2&amp;5\newline 1&amp;3\end{bmatrix}\begin{bmatrix}1\newline 2\end{bmatrix}=1\begin{bmatrix}2\newline 1\end{bmatrix}+2\begin{bmatrix}5\newline 3\end{bmatrix}=\begin{bmatrix}12\newline 7\end{bmatrix}$</li>
+<li>另一种方法，使用向量内积，矩阵第一行向量点乘$x$向量$\begin{bmatrix}2&amp;5\end{bmatrix}\cdot\begin{bmatrix}1&amp;2\end{bmatrix}^T=12,\ \begin{bmatrix}1&amp;3\end{bmatrix}\cdot\begin{bmatrix}1&amp;2\end{bmatrix}^T=7$。</li>
+</ul>
+<p>教授建议使用第一种方法，将$Ax$看做$A$列向量的线性组合。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/04/18/Linear-Algebra-Review-01/">Linear Algebra Review 01</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Rookie</a></p>
+        <p><span>发布时间:</span>2020-04-18, 12:30:42</p>
+        <p><span>最后更新:</span>2020-04-19, 23:10:00</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/04/18/Linear-Algebra-Review-01/" title="Linear Algebra Review 01">https://www.rookie-home.xyz/2020/04/18/Linear-Algebra-Review-01/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2020/04/18/Linear-Algebra-Review-01/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/04/18/Linear-Algebra-Review-02/">
+                    Linear Algebra Review 02
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/03/01/What-is-Code-Refactoring-and-How-To-Refactor/">
+                    What is Code Refactoring and How To Refactor
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一讲：方程组的几何解释"><span class="toc-number">1.</span> <span class="toc-text">第一讲：方程组的几何解释</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Linear Algebra Review 01　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://www.rookie-home.xyz/2020/04/18/Linear-Algebra-Review-01/';
+            this.page.identifier = '2020/04/18/Linear-Algebra-Review-01/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//www-rookie-home-xyz.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/04/18/Linear-Algebra-Review-02/" title="上一篇: Linear Algebra Review 02">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020/03/01/What-is-Code-Refactoring-and-How-To-Refactor/" title="下一篇: What is Code Refactoring and How To Refactor">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/Linear-Algebra-Review-04/">Linear Algebra Review 04</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/19/Linear-Algebra-Review-03/">Linear Algebra Review 03</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/18/Linear-Algebra-Review-02/">Linear Algebra Review 02</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/18/Linear-Algebra-Review-01/">Linear Algebra Review 01</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/01/What-is-Code-Refactoring-and-How-To-Refactor/">What is Code Refactoring and How To Refactor</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/09/Use-Regex-in-Python/">Use Regex in Python</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/01/Design-A-Secure-API/">Design A Secure API</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/17/Function-And-Mapping/">Function And Mapping</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/13/Regex/">Regex</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/06/Monte-Carlo-Programming/">Monte Carlo Programming</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/04/DDOS/">DDOS</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/01/03/Secure-The-Server/">Secure The Server</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/03/Docker-Tools/">Docker Tools</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/11/Message-Queue-%E2%80%94%E2%80%94RabbitMQ/">Message Queue ——RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/03/2PC-And-3PC/">2PC And 3PC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/29/Nginx-Error/">Nginx Error</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/20/Nginx-Optimization/">Nginx Optimization</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/09/Nginx-Syntax/">Nginx Syntax</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/">What Can Nginx Do and How to Use Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/03/Introduction-of-Nginx/">Introduction of Nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/16/DockerCompose-yml/">DockerCompose.yml</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/How-To-Use-Docker-Compose/">How To Use Docker Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/15/Docker-Compose-Introduction/">Docker Compose Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/12/Manage-Docker-Container/">Manage Docker Container</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/12/DockerFile/">DockerFile</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/How-To-Use-Docker/">How To Use Docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/10/Docker-Introduction/">Docker Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/07/Json-Web-Token/">Json Web Token</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/05/Cookie/">Cookie</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/03/How-The-Browser-Works/">How The Browser Works</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/Unicode-Introduction/">Unicode Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/23/TCP/">TCP</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/19/Open-System-Interconnection-Introduction/">Open System Interconnection Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/Avoid-Accident-of-Redis/">Avoid Accident of Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/20/Redis-Persistence/">Redis Persistence</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/15/Redis-RAM/">Redis RAM</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/13/Redis-Transcation/">Redis Transcation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/12/Redis-Data-Structure/">Redis Data Structure</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/Redis-Operation/">Redis Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/Redis-Introduction/">Redis Introduction</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/01/NoSQL/">NoSQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/Database-Design/">Database Design</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/13/Mysql-Optimization/">Mysql Optimization</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/09/Additional-SQL/">Additional SQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/07/Transaction-ACID/">Transaction ACID</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/06/SQL/">SQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/02/Mysql/">Mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/05/ReadingNote%E2%80%94%E2%80%94MMML/">ReadingNote——MMML</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019-2020 Rookie
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
