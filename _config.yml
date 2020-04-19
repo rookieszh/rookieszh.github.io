@@ -95,9 +95,18 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: Yelee
 
+math:
+  engine: 'mathjax' # or 'katex'
+  mathjax:
+    src: custom_mathjax_source
+    config:
+      # MathJax config
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
   repository: git@github.com:rookieszh/rookieszh.github.io.git
   branch: master
+
+
