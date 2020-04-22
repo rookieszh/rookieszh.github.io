@@ -15,16 +15,17 @@
 
 
 
-<meta name="description" content="【Nginx 系列学习笔记——3】 介绍了 Nginx 里匹配判断的语法规则">
+<meta name="description" content="MIT Linear Algebra Review ——06 Column Space and Null Space">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx Syntax">
-<meta property="og:url" content="https://www.rookie-home.xyz/2019/10/09/Nginx-Syntax/index.html">
+<meta property="og:title" content="Linear Algebra Review 06">
+<meta property="og:url" content="https://www.rookie-home.xyz/2020/04/22/Linear-Algebra-Review-06/index.html">
 <meta property="og:site_name" content="Here | Rookie">
-<meta property="og:description" content="【Nginx 系列学习笔记——3】 介绍了 Nginx 里匹配判断的语法规则">
-<meta property="article:published_time" content="2019-10-09T12:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-10T10:55:44.494Z">
+<meta property="og:description" content="MIT Linear Algebra Review ——06 Column Space and Null Space">
+<meta property="article:published_time" content="2020-04-22T13:31:41.000Z">
+<meta property="article:modified_time" content="2020-04-22T13:37:28.746Z">
 <meta property="article:author" content="Rookie">
-<meta property="article:tag" content="Nginx">
+<meta property="article:tag" content="LinearAlgebra">
+<meta property="article:tag" content="MIT">
 <meta name="twitter:card" content="summary">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -59,7 +60,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Nginx Syntax | Here | Rookie</title>
+<title>Linear Algebra Review 06 | Here | Rookie</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -236,11 +237,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Nginx-Syntax" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Linear-Algebra-Review-06" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/10/09/Nginx-Syntax/" class="article-date">
-      <time datetime="2019-10-09T12:00:00.000Z" itemprop="datePublished">2019-10-09</time>
+      <a href="/2020/04/22/Linear-Algebra-Review-06/" class="article-date">
+      <time datetime="2020-04-22T13:31:41.000Z" itemprop="datePublished">2020-04-22</time>
 </a>
 
 
@@ -255,7 +256,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Nginx Syntax
+      Linear Algebra Review 06
     </h1>
   
 
@@ -264,13 +265,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Basic-Component/">Basic Component</a>
+    <a class="article-category-link" href="/categories/Mathematics/">Mathematics</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li></ul>
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinearAlgebra/" rel="tag">LinearAlgebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIT/" rel="tag">MIT</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -280,8 +281,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="Location语法规则"><a href="#Location语法规则" class="headerlink" title="Location语法规则"></a>Location语法规则</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location [ &#x3D; | ~ | ~* | ^~ ] uri &#123; ... &#125;</span><br><span class="line">location @name &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">&#x3D; 表示精确匹配。只有请求的url路径与后面的字符串完全相等时，才会命中。</span><br><span class="line">~ 表示该规则是使用正则定义的，区分大小写。</span><br><span class="line">~* 表示该规则是使用正则定义的，不区分大小写。</span><br><span class="line">^~ 表示如果该符号后面的字符是最佳匹配，采用该规则，不再进行后续的查找。</span><br></pre></td></tr></table></figure>
-<h2 id="if-判断规则"><a href="#if-判断规则" class="headerlink" title="if 判断规则"></a>if 判断规则</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1、正则表达式匹配：</span><br><span class="line">&#x3D;&#x3D;:等值比较;</span><br><span class="line">~：与指定正则表达式模式匹配时返回“真”，判断匹配与否时区分字符大小写；</span><br><span class="line">~*：与指定正则表达式模式匹配时返回“真”，判断匹配与否时不区分字符大小写；</span><br><span class="line">!~：与指定正则表达式模式不匹配时返回“真”，判断匹配与否时区分字符大小写；</span><br><span class="line">!~*：与指定正则表达式模式不匹配时返回“真”，判断匹配与否时不区分字符大小写；</span><br><span class="line"></span><br><span class="line">2、文件及目录匹配判断：</span><br><span class="line">-f, !-f：判断指定的路径是否为存在且为文件；</span><br><span class="line">-d, !-d：判断指定的路径是否为存在且为目录；</span><br><span class="line">-e, !-e：判断指定的路径是否存在，文件或目录均可；</span><br><span class="line">-x, !-x：判断指定路径的文件是否存在且可执行；</span><br></pre></td></tr></table></figure>
+        <h2 id="第六讲：列空间和零空间"><a href="#第六讲：列空间和零空间" class="headerlink" title="第六讲：列空间和零空间"></a>第六讲：列空间和零空间</h2><p>A plane through $\left[\begin{array}{c}{0} \newline  {0} \newline  {0} \end{array}\right]$ is subspace of $\mathbb{R}^3$, called P; A line through $\left[\begin{array}{c}{0} \newline  {0} \newline  {0} \end{array}\right]$ is subspace of $\mathbb{R}^3$, called L. L is not in the plane.<br>$P \cup L$ is not a subspace, 因为无法满足加法封闭性。<br>$P \cap L$ is a subspace, 因为是个零向量。<br>即对向量子空间$S$和$T$，有$S \cap T$也是向量子空间。</p>
+<p>对$m \times n$矩阵$A$（column space of matrix A is a subspace of $\mathbb{R}^m$），$n \times 1$矩阵$x$，$m \times 1$矩阵$b$，运算$Ax=b$：</p>
+<p>$\left[\begin{array}{ccccc}a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1(n-1)} &amp; a_{1 n} \newline  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2(n-1)} &amp; a_{2 n} \newline  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \newline  a_{m 1} &amp; a_{m 2} &amp; \cdots &amp; a_{m(n-1)} &amp; a_{m n}\end{array}\right] \cdot\left[\begin{array}{c}x_{1} \newline  x_{2} \newline  \vdots \newline  x_{n-1} \newline  x_{n}\end{array}\right]=\left[\begin{array}{c}b_{1} \newline  b_{2} \newline  \vdots \newline  b_{m}\end{array}\right]$</p>
+<ol>
+<li>由$A$的列向量的linear combination生成的子空间为$A$的列空间</li>
+<li>$Ax=b$有非零解当且仅当$b$属于$A$的列空间</li>
+<li>A的零空间($\mathbb{R}^n$)是$Ax=0$中$x$的解组成的集合。<br>if Av=0  and Aw=0, then A(v+w)=0, then A(12v)=0</li>
+</ol>
+
       
     </div>
     
@@ -289,13 +297,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/10/09/Nginx-Syntax/">Nginx Syntax</a></p>
+        <p><span>本文标题:</span><a href="/2020/04/22/Linear-Algebra-Review-06/">Linear Algebra Review 06</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Rookie</a></p>
-        <p><span>发布时间:</span>2019-10-09, 20:00:00</p>
-        <p><span>最后更新:</span>2020-04-10, 18:55:44</p>
+        <p><span>发布时间:</span>2020-04-22, 21:31:41</p>
+        <p><span>最后更新:</span>2020-04-22, 21:37:28</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/10/09/Nginx-Syntax/" title="Nginx Syntax">https://www.rookie-home.xyz/2019/10/09/Nginx-Syntax/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2019/10/09/Nginx-Syntax/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/04/22/Linear-Algebra-Review-06/" title="Linear Algebra Review 06">https://www.rookie-home.xyz/2020/04/22/Linear-Algebra-Review-06/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2020/04/22/Linear-Algebra-Review-06/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -308,15 +316,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/10/20/Nginx-Optimization/">
-                    Nginx Optimization
+                <a href="/2020/04/22/Linear-Algebra-Review-07/">
+                    Linear Algebra Review 07
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/">
-                    What Can Nginx Do and How to Use Nginx
+                <a href="/2020/04/22/Linear-Algebra-Review-05/">
+                    Linear Algebra Review 05
                 </a>
             </div>
         
@@ -328,7 +336,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Location语法规则"><span class="toc-number">1.</span> <span class="toc-text">Location语法规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if-判断规则"><span class="toc-number">2.</span> <span class="toc-text">if 判断规则</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六讲：列空间和零空间"><span class="toc-number">1.</span> <span class="toc-text">第六讲：列空间和零空间</span></a></li></ol>
         
     </div>
     <style>
@@ -364,7 +372,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Nginx Syntax　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Linear Algebra Review 06　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -383,8 +391,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'https://www.rookie-home.xyz/2019/10/09/Nginx-Syntax/';
-            this.page.identifier = '2019/10/09/Nginx-Syntax/';
+            this.page.url = 'https://www.rookie-home.xyz/2020/04/22/Linear-Algebra-Review-06/';
+            this.page.identifier = '2020/04/22/Linear-Algebra-Review-06/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -406,7 +414,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/10/20/Nginx-Optimization/" title="上一篇: Nginx Optimization">
+            <a href="/2020/04/22/Linear-Algebra-Review-07/" title="上一篇: Linear Algebra Review 07">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -414,7 +422,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/" title="下一篇: What Can Nginx Do and How to Use Nginx">
+            <a href="/2020/04/22/Linear-Algebra-Review-05/" title="下一篇: Linear Algebra Review 05">
                 <i class="fa fa-angle-right"></i>
             </a>
         

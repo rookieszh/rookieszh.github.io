@@ -15,16 +15,17 @@
 
 
 
-<meta name="description" content="【Nginx 系列学习笔记——3】 介绍了 Nginx 里匹配判断的语法规则">
+<meta name="description" content="MIT Linear Algebra Review ——05 Permutation , Transpose, Symmetric and VectorSpace">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx Syntax">
-<meta property="og:url" content="https://www.rookie-home.xyz/2019/10/09/Nginx-Syntax/index.html">
+<meta property="og:title" content="Linear Algebra Review 05">
+<meta property="og:url" content="https://www.rookie-home.xyz/2020/04/22/Linear-Algebra-Review-05/index.html">
 <meta property="og:site_name" content="Here | Rookie">
-<meta property="og:description" content="【Nginx 系列学习笔记——3】 介绍了 Nginx 里匹配判断的语法规则">
-<meta property="article:published_time" content="2019-10-09T12:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-10T10:55:44.494Z">
+<meta property="og:description" content="MIT Linear Algebra Review ——05 Permutation , Transpose, Symmetric and VectorSpace">
+<meta property="article:published_time" content="2020-04-22T13:31:38.000Z">
+<meta property="article:modified_time" content="2020-04-22T13:35:49.150Z">
 <meta property="article:author" content="Rookie">
-<meta property="article:tag" content="Nginx">
+<meta property="article:tag" content="LinearAlgebra">
+<meta property="article:tag" content="MIT">
 <meta name="twitter:card" content="summary">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -59,7 +60,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Nginx Syntax | Here | Rookie</title>
+<title>Linear Algebra Review 05 | Here | Rookie</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -236,11 +237,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Nginx-Syntax" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Linear-Algebra-Review-05" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/10/09/Nginx-Syntax/" class="article-date">
-      <time datetime="2019-10-09T12:00:00.000Z" itemprop="datePublished">2019-10-09</time>
+      <a href="/2020/04/22/Linear-Algebra-Review-05/" class="article-date">
+      <time datetime="2020-04-22T13:31:38.000Z" itemprop="datePublished">2020-04-22</time>
 </a>
 
 
@@ -255,7 +256,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Nginx Syntax
+      Linear Algebra Review 05
     </h1>
   
 
@@ -264,13 +265,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Basic-Component/">Basic Component</a>
+    <a class="article-category-link" href="/categories/Mathematics/">Mathematics</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/" rel="tag">Nginx</a></li></ul>
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinearAlgebra/" rel="tag">LinearAlgebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIT/" rel="tag">MIT</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -280,8 +281,17 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="Location语法规则"><a href="#Location语法规则" class="headerlink" title="Location语法规则"></a>Location语法规则</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location [ &#x3D; | ~ | ~* | ^~ ] uri &#123; ... &#125;</span><br><span class="line">location @name &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">&#x3D; 表示精确匹配。只有请求的url路径与后面的字符串完全相等时，才会命中。</span><br><span class="line">~ 表示该规则是使用正则定义的，区分大小写。</span><br><span class="line">~* 表示该规则是使用正则定义的，不区分大小写。</span><br><span class="line">^~ 表示如果该符号后面的字符是最佳匹配，采用该规则，不再进行后续的查找。</span><br></pre></td></tr></table></figure>
-<h2 id="if-判断规则"><a href="#if-判断规则" class="headerlink" title="if 判断规则"></a>if 判断规则</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1、正则表达式匹配：</span><br><span class="line">&#x3D;&#x3D;:等值比较;</span><br><span class="line">~：与指定正则表达式模式匹配时返回“真”，判断匹配与否时区分字符大小写；</span><br><span class="line">~*：与指定正则表达式模式匹配时返回“真”，判断匹配与否时不区分字符大小写；</span><br><span class="line">!~：与指定正则表达式模式不匹配时返回“真”，判断匹配与否时区分字符大小写；</span><br><span class="line">!~*：与指定正则表达式模式不匹配时返回“真”，判断匹配与否时不区分字符大小写；</span><br><span class="line"></span><br><span class="line">2、文件及目录匹配判断：</span><br><span class="line">-f, !-f：判断指定的路径是否为存在且为文件；</span><br><span class="line">-d, !-d：判断指定的路径是否为存在且为目录；</span><br><span class="line">-e, !-e：判断指定的路径是否存在，文件或目录均可；</span><br><span class="line">-x, !-x：判断指定路径的文件是否存在且可执行；</span><br></pre></td></tr></table></figure>
+        <h2 id="第五讲：转换、置换、向量空间R"><a href="#第五讲：转换、置换、向量空间R" class="headerlink" title="第五讲：转换、置换、向量空间R"></a>第五讲：转换、置换、向量空间R</h2><h3 id="置换矩阵（Permutation-Matrix）"><a href="#置换矩阵（Permutation-Matrix）" class="headerlink" title="置换矩阵（Permutation Matrix）"></a>置换矩阵（Permutation Matrix）</h3><p>$P$为置换矩阵，对任意可逆矩阵$A$有：<br>$PA=LU$<br>$n$阶方阵的置换矩阵$P$有$\binom{n}{1}=n!$个<br>对置换矩阵$P$，有$P^TP = I$<br>即$P^T = P^{-1}$</p>
+<h3 id="转置矩阵（Transpose-Matrix）"><a href="#转置矩阵（Transpose-Matrix）" class="headerlink" title="转置矩阵（Transpose Matrix）"></a>转置矩阵（Transpose Matrix）</h3><p>$(A^T)<em>{ij} = A</em>{ji}$</p>
+<h3 id="对称矩阵（Symmetric-Matrix）"><a href="#对称矩阵（Symmetric-Matrix）" class="headerlink" title="对称矩阵（Symmetric Matrix）"></a>对称矩阵（Symmetric Matrix）</h3><p>$A^T$ = $A$<br>对任意矩阵$R$有$R^TR$为对称矩阵：<br>$$<br>(R^TR)^T = (R)^T(R^T)^T = R^TR<br>\textrm{，即}(R^TR)^T = R^TR<br>$$</p>
+<h3 id="向量空间（Vector-Space）"><a href="#向量空间（Vector-Space）" class="headerlink" title="向量空间（Vector Space）"></a>向量空间（Vector Space）</h3><p>$R^2$ = all 2-dim real vectors<br>所有向量空间都必须包含原点 Origin，因为向量空间中任意向量的数乘、求和运算得到的向量也在该空间中。一个向量乘以0得零向量。即向量空间要满足加法封闭和数乘封闭。任何的subspaces都必须过原点<br>Subspaces of $R^2$: </p>
+<ol>
+<li>all of $R^2$</li>
+<li>any line through $\left[\begin{array}{c}{0} \newline  {0} \end{array}\right]$</li>
+<li>zero vector only</li>
+</ol>
+<p>columns in $R^3$, like $A=\left[\begin{array}{cc} 1 &amp; 1 \newline  2 &amp; 3 \newline  4 &amp; 1\end{array}\right]$, all their($\left[\begin{array}{c}{1} \newline  {2} \newline  {4} \end{array}\right]$ and $\left[\begin{array}{c}{1} \newline  {3} \newline  {1} \end{array}\right]$) combinations form a subspace, called column space $C(A)$</p>
+
       
     </div>
     
@@ -289,13 +299,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/10/09/Nginx-Syntax/">Nginx Syntax</a></p>
+        <p><span>本文标题:</span><a href="/2020/04/22/Linear-Algebra-Review-05/">Linear Algebra Review 05</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Rookie</a></p>
-        <p><span>发布时间:</span>2019-10-09, 20:00:00</p>
-        <p><span>最后更新:</span>2020-04-10, 18:55:44</p>
+        <p><span>发布时间:</span>2020-04-22, 21:31:38</p>
+        <p><span>最后更新:</span>2020-04-22, 21:35:49</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/10/09/Nginx-Syntax/" title="Nginx Syntax">https://www.rookie-home.xyz/2019/10/09/Nginx-Syntax/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2019/10/09/Nginx-Syntax/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/04/22/Linear-Algebra-Review-05/" title="Linear Algebra Review 05">https://www.rookie-home.xyz/2020/04/22/Linear-Algebra-Review-05/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2020/04/22/Linear-Algebra-Review-05/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -308,15 +318,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/10/20/Nginx-Optimization/">
-                    Nginx Optimization
+                <a href="/2020/04/22/Linear-Algebra-Review-06/">
+                    Linear Algebra Review 06
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/">
-                    What Can Nginx Do and How to Use Nginx
+                <a href="/2020/04/19/Linear-Algebra-Review-04/">
+                    Linear Algebra Review 04
                 </a>
             </div>
         
@@ -328,7 +338,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Location语法规则"><span class="toc-number">1.</span> <span class="toc-text">Location语法规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if-判断规则"><span class="toc-number">2.</span> <span class="toc-text">if 判断规则</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第五讲：转换、置换、向量空间R"><span class="toc-number">1.</span> <span class="toc-text">第五讲：转换、置换、向量空间R</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#置换矩阵（Permutation-Matrix）"><span class="toc-number">1.1.</span> <span class="toc-text">置换矩阵（Permutation Matrix）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转置矩阵（Transpose-Matrix）"><span class="toc-number">1.2.</span> <span class="toc-text">转置矩阵（Transpose Matrix）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对称矩阵（Symmetric-Matrix）"><span class="toc-number">1.3.</span> <span class="toc-text">对称矩阵（Symmetric Matrix）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量空间（Vector-Space）"><span class="toc-number">1.4.</span> <span class="toc-text">向量空间（Vector Space）</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -364,7 +374,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Nginx Syntax　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Linear Algebra Review 05　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -383,8 +393,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'https://www.rookie-home.xyz/2019/10/09/Nginx-Syntax/';
-            this.page.identifier = '2019/10/09/Nginx-Syntax/';
+            this.page.url = 'https://www.rookie-home.xyz/2020/04/22/Linear-Algebra-Review-05/';
+            this.page.identifier = '2020/04/22/Linear-Algebra-Review-05/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -406,7 +416,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/10/20/Nginx-Optimization/" title="上一篇: Nginx Optimization">
+            <a href="/2020/04/22/Linear-Algebra-Review-06/" title="上一篇: Linear Algebra Review 06">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -414,7 +424,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/10/05/What-Can-Nginx-Do-and-How-to-Use-Nginx/" title="下一篇: What Can Nginx Do and How to Use Nginx">
+            <a href="/2020/04/19/Linear-Algebra-Review-04/" title="下一篇: Linear Algebra Review 04">
                 <i class="fa fa-angle-right"></i>
             </a>
         

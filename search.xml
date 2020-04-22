@@ -4,6 +4,114 @@
   
     
     <entry>
+      <title>Linear Algebra Review 08</title>
+      <link href="/2020/04/22/Linear-Algebra-Review-08/"/>
+      <url>/2020/04/22/Linear-Algebra-Review-08/</url>
+      
+        <content type="html"><![CDATA[<h2 id="第八讲：求解-Ax-b-：可解性和解的结构"><a href="#第八讲：求解-Ax-b-：可解性和解的结构" class="headerlink" title="第八讲：求解$Ax=b$：可解性和解的结构"></a>第八讲：求解$Ax=b$：可解性和解的结构</h2><p>举例，同上一讲：$3 \times 4$ 的矩阵$<br>A=<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 2 &amp; 2\newline<br>2 &amp; 4 &amp; 6 &amp; 8\newline<br>3 &amp; 6 &amp; 8 &amp; 10\newline<br>\end{bmatrix}<br>$，求$Ax=b$的特解：</p><p>先写出其增广矩阵（augmented matrix）$\left[\begin{array}{c|c}A &amp; b\end{array}\right]$：<br>$$<br>\left[<br>\begin{array}{c c c c|c}<br>1 &amp; 2 &amp; 2 &amp; 2 &amp; b_1 \newline<br>2 &amp; 4 &amp; 6 &amp; 8 &amp; b_2 \newline<br>3 &amp; 6 &amp; 8 &amp; 10 &amp; b_3 \newline<br>\end{array}<br>\right]<br>\underrightarrow{消元}<br>\left[<br>\begin{array}{c c c c|c}<br>1 &amp; 2 &amp; 2 &amp; 2 &amp; b_1 \newline<br>0 &amp; 0 &amp; 2 &amp; 4 &amp; b_2-2b_1 \newline<br>0 &amp; 0 &amp; 0 &amp; 0 &amp; b_3-b_2-b_1 \newline<br>\end{array}<br>\right]<br>$$</p><p>显然，有解的必要条件为$b_3-b_2-b_1=0$。</p><p>讨论$b$满足什么条件才能让方程$Ax=b$有解（solvability condition on b）：当且仅当$b$属于$A$的列空间时。另一种描述：如果$A$的各行线性组合得到$0$行，则$b$端分量做同样的线性组合，结果也为$0$时，方程才有解。</p><p>解法：令所有自由变量取$0$，则有$\begin{cases}x_1 &amp;+&amp;2x_3 &amp; = 1 \newline  &amp;&amp; 2x_3&amp; = 3 \newline \end{cases}$，解得$\begin{cases}x_1 &amp; = &amp; -2 \newline x_3 &amp; = &amp; \frac{3}{2} \newline \end{cases}$<br>，代入$Ax=b$求得特解$<br>x_p=<br>\begin{bmatrix}<br>-2 \newline  0 \newline  \frac{3}{2} \newline  0<br>\end{bmatrix}<br>$。然后令$Ax=0$求解得零空间解$x_n$(自由变量分别取1)</p><p>令$Ax=b$成立的所有解：<br>$$\begin{cases}<br>A{x_p} = &amp; b \newline<br>A{x_n} = &amp; 0 \newline<br>\end{cases}<br>\quad<br>\underrightarrow{两式相加}<br>\quad<br>A(x_p+x_n)=b<br>$$</p><p>即$Ax=b$的解集为其特解加上零空间，对本例有：<br>$<br>x_{complete}=<br>\begin{bmatrix}<br>-2 \newline  0 \newline  \frac{3}{2} \newline  0<br>\end{bmatrix}<br>+<br>c_1\begin{bmatrix}-2\newline 1\newline 0\newline 0\newline \end{bmatrix}<br>+<br>c_2\begin{bmatrix}2\newline 0\newline -2\newline 1\newline \end{bmatrix}<br>$</p><p>对于$m \times n$矩阵$A$，有矩阵$A$的秩$r \leq min(m, n)$</p><p>列满秩$r=n$情况（即没有自由变量）：$<br>A=<br>\begin{bmatrix}<br>1 &amp; 3 \newline<br>2 &amp; 1 \newline<br>6 &amp; 1 \newline<br>5 &amp; 1 \newline<br>\end{bmatrix}<br>\underrightarrow{消元}<br>\begin{bmatrix}<br>1 &amp; 0 \newline<br>0 &amp; 1 \newline<br>0 &amp; 0 \newline<br>0 &amp; 0 \newline<br>\end{bmatrix}<br>$，$rank(A)=2$，要使$Ax=b, b \neq 0$有非零解，$b$必须取$A$中各列的线性组合，此时A的零空间中只有$0$向量，列之间的线性组合无法组成0向量。$x=x_p$，0或1个解</p><p>行满秩$r=m$情况：$<br>A=<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 6 &amp; 5 \newline<br>3 &amp; 1 &amp; 1 &amp; 1 \newline<br>\end{bmatrix}<br>$，$rank(A)=2$，$\forall b \in R^m都有x \neq 0的解$，因为此时$A$的列空间为$R^m$，$b \in R^m$恒成立，组成$A$的零空间的自由变量有n-r个。</p><p>行列满秩情况：$r=m=n$，如$<br>A=<br>\begin{bmatrix}<br>1 &amp; 2 \newline<br>3 &amp; 4 \newline<br>\end{bmatrix}<br>$，则$A$最终可以化简为$R=I$，其零空间只包含$0$向量。同时矩阵可逆。</p><p>总结：</p><p>$$\begin{array}{c|c|c|c}r=m=n&amp;r=n\lt m&amp;r=m\lt n&amp;r\lt m,r\lt n\newline R=I&amp;R=\begin{bmatrix}I\newline 0\end{bmatrix}&amp;R=\begin{bmatrix}I&amp;F\end{bmatrix}&amp;R=\begin{bmatrix}I&amp;F\newline 0&amp;0\end{bmatrix}\newline 1\ solution&amp;0\ or\ 1\ solution&amp;\infty\ solution&amp;0\ or\ \infty\ solution\end{array}$$</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Mathematics </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LinearAlgebra </tag>
+            
+            <tag> MIT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linear Algebra Review 07</title>
+      <link href="/2020/04/22/Linear-Algebra-Review-07/"/>
+      <url>/2020/04/22/Linear-Algebra-Review-07/</url>
+      
+        <content type="html"><![CDATA[<h2 id="第七讲：求解-Ax-0-，主变量，特解"><a href="#第七讲：求解-Ax-0-，主变量，特解" class="headerlink" title="第七讲：求解$Ax=0$，主变量，特解"></a>第七讲：求解$Ax=0$，主变量，特解</h2><p>举例：有一个 $3 \times 4$ 的矩阵 $A=<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 2 &amp; 2\newline<br>2 &amp; 4 &amp; 6 &amp; 8\newline<br>3 &amp; 6 &amp; 8 &amp; 10\newline<br>\end{bmatrix}<br>$，求 $Ax=0$ 的特解：</p><ol><li>找出主变量（pivot variable）：<br>$$<br>A=<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 2 &amp; 2\newline<br>2 &amp; 4 &amp; 6 &amp; 8\newline<br>3 &amp; 6 &amp; 8 &amp; 10\newline<br>\end{bmatrix}<br>\underrightarrow{eliminate}<br>\begin{bmatrix}<br>\underline{1} &amp; 2 &amp; 2 &amp; 2\newline<br>0 &amp; 0 &amp; \underline{2} &amp; 4\newline<br>0 &amp; 0 &amp; 0 &amp; 0\newline<br>\end{bmatrix}<br>=U<br>$$</li></ol><p>主变量（pivot variable，下划线元素）的个数为2，即矩阵$A$的秩（rank）为2，即 $r=2$。<br>主变量所在的列为主列（pivot column），其余列为自由列（free column）。<br>自由列中的变量为自由变量（free variable），即可以给自由变量赋任意值（此例为 $x_2、x_4$），但赋值很有讲究。自由变量的个数为$n-r=4-2=2$。<br>通常，给自由列变量赋值，去求主列变量的值。如，令$x_2=1, x_4=0$求得特解$x=c_1\begin{bmatrix}-2\newline 1\newline 0\newline 0\newline \end{bmatrix}$；<br>再令$x_2=0, x_4=1$求得特解$x=c_2\begin{bmatrix}2\newline 0\newline -2\newline 1\newline \end{bmatrix}$。<br>该例还能进一步简化，即将$U$矩阵化简为$R$矩阵（Reduced row echelon form），即简化行阶梯形式。</p><p>在简化行阶梯形式中，主元上下的元素都是$0$：<br>$$<br>U=<br>\begin{bmatrix}<br>\underline{1} &amp; 2 &amp; 2 &amp; 2\newline<br>0 &amp; 0 &amp; \underline{2} &amp; 4\newline<br>0 &amp; 0 &amp; 0 &amp; 0\newline<br>\end{bmatrix}<br>\underrightarrow{化简}<br>\begin{bmatrix}<br>\underline{1} &amp; 2 &amp; 0 &amp; -2\newline<br>0 &amp; 0 &amp; \underline{1} &amp; 2\newline<br>0 &amp; 0 &amp; 0 &amp; 0\newline<br>\end{bmatrix}<br>=R<br>$$</p><p>将$R$矩阵中的主变量放在一起，自由变量放在一起（列交换），得到</p><p>$R=\left[\begin{array}{llll}\underline{1} &amp; 2 &amp; 0 &amp; -2 \newline  0 &amp; 0 &amp; \underline{1} &amp; 2 \newline  0 &amp; 0 &amp; 0 &amp; 0\end{array}\right] \xrightarrow{列交换} \left[\begin{array}{c c | c c }1 &amp; 0 &amp; 2 &amp; -2 \newline  0 &amp; 1 &amp; 0 &amp; 2 \newline  \hline 0 &amp; 0 &amp; 0 &amp; 0\end{array}\right]=\left[\begin{array}{ll}I &amp; F \newline  0 &amp; 0\end{array}\right]$<br>$\textrm{其中}I\textrm{为单位矩阵（r x r），}F\textrm{为自由变量组成的矩阵}$</p><p>计算零空间矩阵$N$（nullspace matrix），其列为特解，有$RN=0$。<br>$x_{p i v o t}=-F x_{f r e e}$<br>$\left[\begin{array}{cc}I &amp; F\end{array}\right]\left[\begin{array}{c}x_{p i v o t} \newline  x_{f r e e}\end{array}\right]=0$<br>$N=\left[\begin{array}{c}-F \newline  I\end{array}\right]$</p><p>在本例中$<br>N=<br>\begin{bmatrix}<br>-2 &amp; 2 \newline<br>0 &amp; -2 \newline<br>1 &amp; 0 \newline<br>0 &amp; 1 \newline<br>\end{bmatrix}<br>$，与上面求得的两个$x$特解一致。<br>另一个例子，矩阵$<br>A^T=<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 \newline<br>2 &amp; 4 &amp; 6 \newline<br>2 &amp; 6 &amp; 8 \newline<br>2 &amp; 8 &amp; 10 \newline<br>\end{bmatrix}<br>\underrightarrow{消元}<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 \newline<br>0 &amp; 2 &amp; 2 \newline<br>0 &amp; 0 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 \newline<br>\end{bmatrix}<br>\underrightarrow{化简}<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 1 \newline<br>0 &amp; 1 &amp; 1 \newline<br>0 &amp; 0 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 \newline<br>\end{bmatrix}<br>=R<br>$<br>矩阵的秩仍为$r=2$，有$2$个主变量，$1$个自由变量。<br>同上一例，取自由变量为$x_3=1$，求得特解$<br>x=c<br>\begin{bmatrix}<br>-1 \newline<br>-1 \newline<br>1 \newline<br>\end{bmatrix}<br>$</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Mathematics </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LinearAlgebra </tag>
+            
+            <tag> MIT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linear Algebra Review 06</title>
+      <link href="/2020/04/22/Linear-Algebra-Review-06/"/>
+      <url>/2020/04/22/Linear-Algebra-Review-06/</url>
+      
+        <content type="html"><![CDATA[<h2 id="第六讲：列空间和零空间"><a href="#第六讲：列空间和零空间" class="headerlink" title="第六讲：列空间和零空间"></a>第六讲：列空间和零空间</h2><p>A plane through $\left[\begin{array}{c}{0} \newline  {0} \newline  {0} \end{array}\right]$ is subspace of $\mathbb{R}^3$, called P; A line through $\left[\begin{array}{c}{0} \newline  {0} \newline  {0} \end{array}\right]$ is subspace of $\mathbb{R}^3$, called L. L is not in the plane.<br>$P \cup L$ is not a subspace, 因为无法满足加法封闭性。<br>$P \cap L$ is a subspace, 因为是个零向量。<br>即对向量子空间$S$和$T$，有$S \cap T$也是向量子空间。</p><p>对$m \times n$矩阵$A$（column space of matrix A is a subspace of $\mathbb{R}^m$），$n \times 1$矩阵$x$，$m \times 1$矩阵$b$，运算$Ax=b$：</p><p>$\left[\begin{array}{ccccc}a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1(n-1)} &amp; a_{1 n} \newline  a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2(n-1)} &amp; a_{2 n} \newline  \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \newline  a_{m 1} &amp; a_{m 2} &amp; \cdots &amp; a_{m(n-1)} &amp; a_{m n}\end{array}\right] \cdot\left[\begin{array}{c}x_{1} \newline  x_{2} \newline  \vdots \newline  x_{n-1} \newline  x_{n}\end{array}\right]=\left[\begin{array}{c}b_{1} \newline  b_{2} \newline  \vdots \newline  b_{m}\end{array}\right]$</p><ol><li>由$A$的列向量的linear combination生成的子空间为$A$的列空间</li><li>$Ax=b$有非零解当且仅当$b$属于$A$的列空间</li><li>A的零空间($\mathbb{R}^n$)是$Ax=0$中$x$的解组成的集合。<br>if Av=0  and Aw=0, then A(v+w)=0, then A(12v)=0</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Mathematics </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LinearAlgebra </tag>
+            
+            <tag> MIT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linear Algebra Review 05</title>
+      <link href="/2020/04/22/Linear-Algebra-Review-05/"/>
+      <url>/2020/04/22/Linear-Algebra-Review-05/</url>
+      
+        <content type="html"><![CDATA[<h2 id="第五讲：转换、置换、向量空间R"><a href="#第五讲：转换、置换、向量空间R" class="headerlink" title="第五讲：转换、置换、向量空间R"></a>第五讲：转换、置换、向量空间R</h2><h3 id="置换矩阵（Permutation-Matrix）"><a href="#置换矩阵（Permutation-Matrix）" class="headerlink" title="置换矩阵（Permutation Matrix）"></a>置换矩阵（Permutation Matrix）</h3><p>$P$为置换矩阵，对任意可逆矩阵$A$有：<br>$PA=LU$<br>$n$阶方阵的置换矩阵$P$有$\binom{n}{1}=n!$个<br>对置换矩阵$P$，有$P^TP = I$<br>即$P^T = P^{-1}$</p><h3 id="转置矩阵（Transpose-Matrix）"><a href="#转置矩阵（Transpose-Matrix）" class="headerlink" title="转置矩阵（Transpose Matrix）"></a>转置矩阵（Transpose Matrix）</h3><p>$(A^T)<em>{ij} = A</em>{ji}$</p><h3 id="对称矩阵（Symmetric-Matrix）"><a href="#对称矩阵（Symmetric-Matrix）" class="headerlink" title="对称矩阵（Symmetric Matrix）"></a>对称矩阵（Symmetric Matrix）</h3><p>$A^T$ = $A$<br>对任意矩阵$R$有$R^TR$为对称矩阵：<br>$$<br>(R^TR)^T = (R)^T(R^T)^T = R^TR<br>\textrm{，即}(R^TR)^T = R^TR<br>$$</p><h3 id="向量空间（Vector-Space）"><a href="#向量空间（Vector-Space）" class="headerlink" title="向量空间（Vector Space）"></a>向量空间（Vector Space）</h3><p>$R^2$ = all 2-dim real vectors<br>所有向量空间都必须包含原点 Origin，因为向量空间中任意向量的数乘、求和运算得到的向量也在该空间中。一个向量乘以0得零向量。即向量空间要满足加法封闭和数乘封闭。任何的subspaces都必须过原点<br>Subspaces of $R^2$: </p><ol><li>all of $R^2$</li><li>any line through $\left[\begin{array}{c}{0} \newline  {0} \end{array}\right]$</li><li>zero vector only</li></ol><p>columns in $R^3$, like $A=\left[\begin{array}{cc} 1 &amp; 1 \newline  2 &amp; 3 \newline  4 &amp; 1\end{array}\right]$, all their($\left[\begin{array}{c}{1} \newline  {2} \newline  {4} \end{array}\right]$ and $\left[\begin{array}{c}{1} \newline  {3} \newline  {1} \end{array}\right]$) combinations form a subspace, called column space $C(A)$</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Mathematics </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LinearAlgebra </tag>
+            
+            <tag> MIT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linear Algebra Review 04</title>
       <link href="/2020/04/19/Linear-Algebra-Review-04/"/>
       <url>/2020/04/19/Linear-Algebra-Review-04/</url>
