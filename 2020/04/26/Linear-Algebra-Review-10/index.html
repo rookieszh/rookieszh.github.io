@@ -15,16 +15,17 @@
 
 
 
-<meta name="description" content="【Docker 系列学习笔记——DockerCompose介绍】1.什么是DockerCompose。2.安装DockerCompose">
+<meta name="description" content="MIT Linear Algebra Review ——10 Four Fundamental Subspace And Vector Space">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker Compose Introduction">
-<meta property="og:url" content="https://www.rookie-home.xyz/2019/09/15/Docker-Compose-Introduction/index.html">
+<meta property="og:title" content="Linear Algebra Review 10">
+<meta property="og:url" content="https://www.rookie-home.xyz/2020/04/26/Linear-Algebra-Review-10/index.html">
 <meta property="og:site_name" content="Here | Rookie">
-<meta property="og:description" content="【Docker 系列学习笔记——DockerCompose介绍】1.什么是DockerCompose。2.安装DockerCompose">
-<meta property="article:published_time" content="2019-09-15T05:56:57.000Z">
-<meta property="article:modified_time" content="2020-04-10T10:55:44.478Z">
+<meta property="og:description" content="MIT Linear Algebra Review ——10 Four Fundamental Subspace And Vector Space">
+<meta property="article:published_time" content="2020-04-25T16:20:02.000Z">
+<meta property="article:modified_time" content="2020-04-25T16:23:34.716Z">
 <meta property="article:author" content="Rookie">
-<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="LinearAlgebra">
+<meta property="article:tag" content="MIT">
 <meta name="twitter:card" content="summary">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -59,7 +60,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Docker Compose Introduction | Here | Rookie</title>
+<title>Linear Algebra Review 10 | Here | Rookie</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -236,11 +237,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Docker-Compose-Introduction" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Linear-Algebra-Review-10" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/09/15/Docker-Compose-Introduction/" class="article-date">
-      <time datetime="2019-09-15T05:56:57.000Z" itemprop="datePublished">2019-09-15</time>
+      <a href="/2020/04/26/Linear-Algebra-Review-10/" class="article-date">
+      <time datetime="2020-04-25T16:20:02.000Z" itemprop="datePublished">2020-04-26</time>
 </a>
 
 
@@ -255,7 +256,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Docker Compose Introduction
+      Linear Algebra Review 10
     </h1>
   
 
@@ -264,13 +265,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Basic-Component/">Basic Component</a>
+    <a class="article-category-link" href="/categories/Mathematics/">Mathematics</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinearAlgebra/" rel="tag">LinearAlgebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MIT/" rel="tag">MIT</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -280,19 +281,22 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="DockerCompose-概念"><a href="#DockerCompose-概念" class="headerlink" title="DockerCompose 概念"></a>DockerCompose 概念</h2><p>Compose有2个重要的概念：</p>
+        <h2 id="第十讲-四个基本子空间"><a href="#第十讲-四个基本子空间" class="headerlink" title="第十讲 四个基本子空间"></a>第十讲 四个基本子空间</h2><p>对于$m \times n$矩阵$A$，$rank(A)=r$有：</p>
 <ul>
-<li>项目（Project）：由一组关联的应用容器组成的一个完整业务单元，在 docker-compose.yml 文件中定义。</li>
-<li>服务（Service）：一个应用的容器，实际上可以包括若干运行相同镜像的容器实例。<h3 id="工程、服务、容器"><a href="#工程、服务、容器" class="headerlink" title="工程、服务、容器"></a>工程、服务、容器</h3><blockquote>
-<p>Docker Compose 将所管理的容器分为三层，分别是工程（project）、服务（service）、容器（container）</p>
-</blockquote>
-</li>
+<li>行空间$C(A^T) \in \mathbb{R}^n, dim C(A^T)=r$，基见例1。</li>
+<li>零空间$N(A) \in \mathbb{R}^n, dim N(A)=n-r$，自由元所在的列即可组成零空间的一组基。</li>
+<li>列空间$C(A) \in \mathbb{R}^m, dim C(A)=r$，主元所在的列即可组成列空间的一组基。</li>
+<li>left null space 左零空间$N(A^T) \in \mathbb{R}^m, dim N(A^T)=m-r$，基见例2。</li>
 </ul>
-<p>Docker Compose 运行目录下的所有文件（docker-compose.yml）组成一个工程,一个工程包含多个服务，每个服务中定义了容器运行的镜像、参数、依赖，一个服务可包括多个容器实例</p>
-<h2 id="安装-Docker-Compose"><a href="#安装-Docker-Compose" class="headerlink" title="安装 Docker-Compose"></a>安装 Docker-Compose</h2><h3 id="github-安装"><a href="#github-安装" class="headerlink" title="github 安装"></a>github 安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">自动下载适应版本的 Compose，并为安装脚本添加执行权限</span><br><span class="line">curl -L https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.25.0&#x2F;docker-compose-$(uname -s)-$(uname -m) -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br><span class="line">chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
-<h3 id="pip-安装"><a href="#pip-安装" class="headerlink" title="pip 安装"></a>pip 安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install docker-compose</span><br><span class="line"># 查看是否安装成功</span><br><span class="line">docker-compose -v</span><br></pre></td></tr></table></figure>
-<h3 id="安装补全插件"><a href="#安装补全插件" class="headerlink" title="安装补全插件"></a>安装补全插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;docker&#x2F;compose&#x2F;1.25.0&#x2F;contrib&#x2F;completion&#x2F;bash&#x2F;docker-compose &gt; &#x2F;etc&#x2F;bash_completion.d&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
-<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 二进制卸载</span><br><span class="line">rm &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br><span class="line"># pip卸载</span><br><span class="line">pip uninstall docker-compose</span><br></pre></td></tr></table></figure>
+<p>例1，对于行空间$<br>A=<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 &amp; 1 \newline<br>1 &amp; 1 &amp; 2 &amp; 1 \newline<br>1 &amp; 2 &amp; 3 &amp; 1 \newline<br>\end{bmatrix}<br>\underrightarrow{消元、化简}<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 1 &amp; 1 \newline<br>0 &amp; 1 &amp; 1 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 &amp; 0 \newline<br>\end{bmatrix}<br>=R<br>$</p>
+<p>由于我们做了行变换，所以A的列空间受到影响，$C(R) \neq C(A)$，而行变换并不影响行空间，所以可以在$R$中看出前两行就是行空间的一组基 basis。<br>所以，可以得出无论对于矩阵$A$还是$R$，其行空间的一组基，可以由$R$矩阵的前$r$行向量组成（这里的$R$就是第七讲提到的简化行阶梯形式）。</p>
+<p>例2，对于左零空间，有$A^Ty=0 \rightarrow (A^Ty)^T=0^T\rightarrow y^TA=0^T$，因此得名。<br>采用Gauss-Jordan消元，将增广矩阵$\left[\begin{array}{c|c}A_{m \times n} &amp; I_{m \times m}\end{array}\right]$中$A$的部分划为简化行阶梯形式$\left[\begin{array}{c|c}R_{m \times n} &amp; E_{m \times m}\end{array}\right]$，此时矩阵$E$会将所有的行变换记录下来。则$EA=R$，而在前几讲中，有当$A’$是$m$阶可逆方阵时，$R’$即是$I$，所以$E$就是$A^{-1}$。</p>
+<p>本例中：<br>$$<br>\left[\begin{array}{c|c}A_{m \times n} &amp; I_{m \times m}\end{array}\right]=<br>\left[<br>\begin{array}<br>{c c c c|c c c}<br>1 &amp; 2 &amp; 3 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \newline<br>1 &amp; 1 &amp; 2 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \newline<br>1 &amp; 2 &amp; 3 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \newline<br>\end{array}<br>\right]<br>\underrightarrow{消元、化简}<br>\left[<br>\begin{array}<br>{c c c c|c c c}<br>1 &amp; 0 &amp; 1 &amp; 1 &amp; -1 &amp; 2 &amp; 0 \newline<br>0 &amp; 1 &amp; 1 &amp; 0 &amp; 1 &amp; -1 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 &amp; 0 &amp; -1 &amp; 0 &amp; 1 \newline<br>\end{array}<br>\right]<br>=\left[\begin{array}{c|c}R_{m \times n} &amp; E_{m \times m}\end{array}\right]<br>$$</p>
+<p>则：<br>$$<br>EA=<br>\begin{bmatrix}<br>-1 &amp; 2  &amp; 0 \newline<br>1  &amp; -1 &amp; 0 \newline<br>-1 &amp; 0  &amp; 1 \newline<br>\end{bmatrix}<br>\cdot<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 &amp; 1 \newline<br>1 &amp; 1 &amp; 2 &amp; 1 \newline<br>1 &amp; 2 &amp; 3 &amp; 1 \newline<br>\end{bmatrix}<br>=\begin{bmatrix}<br>1 &amp; 0 &amp; 1 &amp; 1 \newline<br>0 &amp; 1 &amp; 1 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 &amp; 0 \newline<br>\end{bmatrix}<br>=R<br>$$</p>
+<p>很明显，式中$E$的最后一行对$A$的行做线性组合后，得到$R$的最后一行，即$0$向量，也就是$y^TA=0^T$。</p>
+<p>最后，引入矩阵空间的概念，矩阵可以同向量一样，做求和、数乘。<br>举例，设所有$3 \times 3$矩阵组成的矩阵空间为$M$。则子空间有上三角矩阵、对称矩阵、对角矩阵（前两者的交集）。</p>
+<p>观察一下对角矩阵，如果取$<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 \newline<br>\end{bmatrix} \quad<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 0 \newline<br>0 &amp; 3 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 \newline<br>\end{bmatrix} \quad<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 0 \newline<br>0 &amp; 0 &amp; 0 \newline<br>0 &amp; 0 &amp; 7 \newline<br>\end{bmatrix}<br>$，可以发现，任何三阶对角矩阵均可用这三个矩阵的线性组合生成，因此，他们生成了三阶对角矩阵空间，即这三个矩阵是三阶对角矩阵空间的一组基。</p>
+
       
     </div>
     
@@ -300,13 +304,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/09/15/Docker-Compose-Introduction/">Docker Compose Introduction</a></p>
+        <p><span>本文标题:</span><a href="/2020/04/26/Linear-Algebra-Review-10/">Linear Algebra Review 10</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Rookie</a></p>
-        <p><span>发布时间:</span>2019-09-15, 13:56:57</p>
-        <p><span>最后更新:</span>2020-04-10, 18:55:44</p>
+        <p><span>发布时间:</span>2020-04-26, 00:20:02</p>
+        <p><span>最后更新:</span>2020-04-26, 00:23:34</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/09/15/Docker-Compose-Introduction/" title="Docker Compose Introduction">https://www.rookie-home.xyz/2019/09/15/Docker-Compose-Introduction/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2019/09/15/Docker-Compose-Introduction/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/04/26/Linear-Algebra-Review-10/" title="Linear Algebra Review 10">https://www.rookie-home.xyz/2020/04/26/Linear-Algebra-Review-10/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://www.rookie-home.xyz/2020/04/26/Linear-Algebra-Review-10/　　作者: Rookie" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -318,16 +322,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/09/15/How-To-Use-Docker-Compose/">
-                    How To Use Docker Compose
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/09/12/Manage-Docker-Container/">
-                    Manage Docker Container
+                <a href="/2020/04/23/Linear-Algebra-Review-09/">
+                    Linear Algebra Review 09
                 </a>
             </div>
         
@@ -339,7 +337,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DockerCompose-概念"><span class="toc-number">1.</span> <span class="toc-text">DockerCompose 概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#工程、服务、容器"><span class="toc-number">1.1.</span> <span class="toc-text">工程、服务、容器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Docker-Compose"><span class="toc-number">2.</span> <span class="toc-text">安装 Docker-Compose</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github-安装"><span class="toc-number">2.1.</span> <span class="toc-text">github 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pip-安装"><span class="toc-number">2.2.</span> <span class="toc-text">pip 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装补全插件"><span class="toc-number">2.3.</span> <span class="toc-text">安装补全插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#卸载"><span class="toc-number">2.4.</span> <span class="toc-text">卸载</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第十讲-四个基本子空间"><span class="toc-number">1.</span> <span class="toc-text">第十讲 四个基本子空间</span></a></li></ol>
         
     </div>
     <style>
@@ -375,7 +373,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Docker Compose Introduction　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Linear Algebra Review 10　| Here | Rookie　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -394,8 +392,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'https://www.rookie-home.xyz/2019/09/15/Docker-Compose-Introduction/';
-            this.page.identifier = '2019/09/15/Docker-Compose-Introduction/';
+            this.page.url = 'https://www.rookie-home.xyz/2020/04/26/Linear-Algebra-Review-10/';
+            this.page.identifier = '2020/04/26/Linear-Algebra-Review-10/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -417,15 +415,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/09/15/How-To-Use-Docker-Compose/" title="上一篇: How To Use Docker Compose">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/09/12/Manage-Docker-Container/" title="下一篇: Manage Docker Container">
+            <a href="/2020/04/23/Linear-Algebra-Review-09/" title="下一篇: Linear Algebra Review 09">
                 <i class="fa fa-angle-right"></i>
             </a>
         
